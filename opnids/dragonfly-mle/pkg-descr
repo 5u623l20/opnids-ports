@@ -1,0 +1,6 @@
+DragonFly MLE is a machine learning engine for running models 
+within a security infrastructure and performing threat hunting and
+scoring of suspect network traffic in order to help the SOC analyst
+perform their function better.
+
+WWW: https://github.com/counterflowai/dragonfly-mle
