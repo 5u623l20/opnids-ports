@@ -19,7 +19,7 @@ LICENSE= 	GPLv2
 LIB_DEPENDS= libcurl.so:ftp/curl libluajit-5.1.so:lang/luajit libhiredis.so:databases/hiredis 
 RUN_DEPENDS= redis-server:databases/redis lua51:lang/lua51
 
-WRKSRC= 	${WRKDIR}/dragonfly-mle-0.5.0/src
+WRKSRC= 	${WRKDIR}/dragonfly-mle-0.5.1/src
 
 PLIST_FILES= 	dragonfly-mle/bin/dragonfly-mle \
 		dragonfly-mle/config/config.lua \
