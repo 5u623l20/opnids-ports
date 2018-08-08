@@ -1,15 +1,15 @@
 # $FreeBSD$
 
 PORTNAME=	dragonfly-mle
-DISTVERSION= 	0.5.0
+DISTVERSION= 	0.5.1
 USE_GITHUB=	yes
 GH_ACCOUNT=	counterflow-ai
 GH_PROJECT=	dragonfly-mle
-GH_TAGNAME=	v0.5.0
+GH_TAGNAME=	v0.5.1
 
 CATEGORIES=	opnids
 #MASTER_SITES= 	GH/counterflow-ai/dragonfly-mle
-#DISTFILES= 	dragonfly-mle-0.5.0.tar.gz
+#DISTFILES= 	dragonfly-mle-0.5.1.tar.gz
 
 MAINTAINER= 	project@opnids.io
 COMMENT= 	DragonFly Machine Learning Engine
@@ -39,6 +39,7 @@ PLIST_FILES= 	dragonfly-mle/bin/dragonfly-mle \
 		dragonfly-mle/analyzer/example-hll.lua \
 		dragonfly-mle/analyzer/example-nsm.lua \
 		dragonfly-mle/analyzer/example-outlier.lua \
+		dragonfly-mle/analyzer/example-ranked-sum.lua \
 		dragonfly-mle/analyzer/example-tls.lua \
 		dragonfly-mle/analyzer/feature.lua \
 		etc/rc.d/dragonfly-mle
@@ -51,34 +52,35 @@ PLIST_DIRS=	dragonfly-mle/analyzer \
 		dragonfly-mle/log
 
 pre-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/dragonfly-mle/analyzer
 	${MKDIR} ${STAGEDIR}${PREFIX}/dragonfly-mle/bin
 	${MKDIR} ${STAGEDIR}${PREFIX}/dragonfly-mle/config
 	${MKDIR} ${STAGEDIR}${PREFIX}/dragonfly-mle/filter
-	${MKDIR} ${STAGEDIR}${PREFIX}/dragonfly-mle/analyzer
 
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/dragonfly-mle ${STAGEDIR}/${PREFIX}/dragonfly-mle/bin
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/config/config.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/config/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/filter/passthrough-filter.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/filter/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/filter/suricata-filter.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/filter/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/default-analyzer.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/dga-lr-mle.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/dga-rf-1.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/dga-rf-2.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/dga-rf-3.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/dga-rf-4.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/dga-rf-5.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/dga-rf-mle.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/example-alert.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/example-dns.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/example-flow.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/example-hll.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/example-nsm.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/example-outlier.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/example-tls.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/src/analyzer/feature.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.0/rc/freebsd/dragonfly-mle ${STAGEDIR}/${PREFIX}/etc/rc.d
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/config/config.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/config/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/filter/passthrough-filter.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/filter/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/filter/suricata-filter.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/filter/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/default-analyzer.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/dga-lr-mle.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/dga-rf-1.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/dga-rf-2.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/dga-rf-3.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/dga-rf-4.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/dga-rf-5.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/dga-rf-mle.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/example-alert.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/example-dns.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/example-flow.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/example-hll.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/example-nsm.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/example-outlier.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/example-ranked-sum.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/example-tls.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/src/analyzer/feature.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.1/rc/freebsd/dragonfly-mle ${STAGEDIR}/${PREFIX}/etc/rc.d
 
 
 post-install:
