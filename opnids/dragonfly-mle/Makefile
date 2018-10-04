@@ -1,15 +1,15 @@
 # $FreeBSD$
 
 PORTNAME=	dragonfly-mle
-DISTVERSION= 	0.5.2
+DISTVERSION= 	0.6.1
 USE_GITHUB=	yes
 GH_ACCOUNT=	counterflow-ai
 GH_PROJECT=	dragonfly-mle
-GH_TAGNAME=	v0.5.2
+GH_TAGNAME=	v0.6.1
 
 CATEGORIES=	opnids
 #MASTER_SITES= 	GH/counterflow-ai/dragonfly-mle
-#DISTFILES= 	dragonfly-mle-0.5.2.tar.gz
+#DISTFILES= 	dragonfly-mle-0.6.1.tar.gz
 
 MAINTAINER= 	project@opnids.io
 COMMENT= 	DragonFly Machine Learning Engine
@@ -19,7 +19,7 @@ LICENSE= 	GPLv2
 LIB_DEPENDS= libcurl.so:ftp/curl libluajit-5.1.so:lang/luajit libhiredis.so:databases/hiredis 
 RUN_DEPENDS= redis-server:databases/redis lua51:lang/lua51
 
-WRKSRC= 	${WRKDIR}/dragonfly-mle-0.5.2/src
+WRKSRC= 	${WRKDIR}/dragonfly-mle-0.6.1/src
 
 PLIST_FILES= 	dragonfly-mle/bin/dragonfly-mle \
 		dragonfly-mle/config/config.lua \
@@ -60,27 +60,27 @@ pre-install:
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/dragonfly-mle ${STAGEDIR}/${PREFIX}/dragonfly-mle/bin
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/config/config.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/config/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/filter/passthrough-filter.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/filter/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/filter/suricata-filter.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/filter/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/default-analyzer.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/dga-lr-mle.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/dga-rf-1.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/dga-rf-2.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/dga-rf-3.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/dga-rf-4.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/dga-rf-5.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/dga-rf-mle.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/example-alert.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/example-dns.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/example-flow.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/example-hll.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/example-nsm.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/example-outlier.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/example-ranked-sum.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/example-tls.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/src/analyzer/feature.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
-	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.5.2/rc/freebsd/dragonfly-mle ${STAGEDIR}/${PREFIX}/etc/rc.d
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/config/config.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/config/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/filter/passthrough-filter.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/filter/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/filter/suricata-filter.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/filter/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/default-analyzer.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/dga-lr-mle.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/dga-rf-1.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/dga-rf-2.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/dga-rf-3.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/dga-rf-4.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/dga-rf-5.ml ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/dga-rf-mle.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/example-alert.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/example-dns.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/example-flow.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/example-hll.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/example-nsm.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/example-outlier.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/example-ranked-sum.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/example-tls.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/src/analyzer/feature.lua ${STAGEDIR}/${PREFIX}/dragonfly-mle/analyzer/
+	${INSTALL_SCRIPT} ${WRKDIR}/dragonfly-mle-0.6.1/rc/freebsd/dragonfly-mle ${STAGEDIR}/${PREFIX}/etc/rc.d
 
 
 post-install:
