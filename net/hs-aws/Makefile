@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	aws
-PORTVERSION=	0.19
+PORTVERSION=	0.20
 PORTREVISION=	1
 CATEGORIES=	net haskell
 
@@ -20,8 +20,6 @@ USE_CABAL=	aeson>=0.6 attoparsec>=0.11 base16-bytestring \
 		utf8-string>=0.3 vector>=0.10 xml-conduit>=1.2
 
 FLAGS_DISABLE=	examples
-
-IGNORE=		Doesn't build with recent hs-conduit and hs-resourcet
 
 .include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
 .include <bsd.port.mk>

@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	zathura
-PORTVERSION=	0.4.0
+PORTVERSION=	0.4.1
+PORTREVISION=	1
 CATEGORIES=	graphics print
 MASTER_SITES=	https://pwmt.org/projects/zathura/download/ \
 		http://www.madpilot.net/~mad/pwmt.org/

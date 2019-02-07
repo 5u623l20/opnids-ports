@@ -33,6 +33,7 @@ ALL_TARGET=	world.opt
 STRIP=
 SSP_UNSAFE=	yes
 MAKE_JOBS_UNSAFE=	yes
+LDFLAGS_i386=	-Wl,-znotext
 
 USE_HARDENING=	pie:off relro:off
 LLVM_AR_UNSAFE=	yes
@@ -45,8 +46,6 @@ CONFIGURE_ARGS=	-verbose -prefix "${PREFIX}" \
 OPTIONS_DEFINE=	X11 THREADS DOCS EXAMPLES
 OPTIONS_DEFAULT=X11 THREADS
 CMP_LIB_DESC=	Install compiler libraries
-PORTDOCS=	htmlman ${DOCSDISTNAME}-refman.ps.gz \
-		${DOCSDISTNAME}-refman.pdf
 
 MODOPT=		camlp4o camlp4r ocamlc ocamldep ocamldoc ocamllex ocamlopt
 PATTERN=	[[:space:]]*(do|then)?[[:space:]]*)(\$$\(CP\)|cp)([[:space:]]

@@ -1,6 +1,7 @@
 # Created by: Boris Samorodov <bsam@FreeBSD.org>
 # $FreeBSD$
 
+PORTREVISION=	1
 PKGNAMESUFFIX=	-${FLAVOR:U:S/_/-/}
 DISTNAME=	${PORTNAME}-nolang-${DISTVERSION}
 CATEGORIES=	devel python
@@ -29,13 +30,15 @@ PORTDATA=	*
 PORTDOCS=	*
 PORTEXAMPLES=	*
 
+OPTIONS_DEFINE=	DOCS EXAMPLES
+
 .include "${.CURDIR}/bsd.eric6.mk"
 .include <bsd.port.options.mk>
 
 PY_FLAVORS=	py${PYTHON_DEFAULT:S/.//} py${PYTHON2_DEFAULT:S/.//} py${PYTHON3_DEFAULT:S/.//}
 .for flavor in ${PY_FLAVORS}
 .  if empty(FLAVORS:Mqt4_${flavor})
-FLAVORS:=	${FLAVORS} qt4_${flavor} qt5_${flavor}
+FLAVORS:=	${FLAVORS} qt5_${flavor} qt4_${flavor}
 .  endif
 .endfor
 .if empty(FLAVOR)

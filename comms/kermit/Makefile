@@ -12,14 +12,13 @@ COMMENT=	Portable scriptable network and serial communication program
 
 LICENSE=	BSD3CLAUSE
 
-BROKEN_SSL=	openssl-devel
-BROKEN_SSL_REASON_openssl-devel=	incomplete definition of type 'struct x509_store_ctx_st'
-
 USES=		ssl
 NO_WRKSUBDIR=	yes
 MAKEFILE=	makefile
 ALL_TARGET=	freebsd+ssl
 MAKE_ARGS=	CC2="${CC}" SSLINC="-I${OPENSSLINC}" SSLLIB="-L${OPENSSLLIB}"
+
+CFLAGS=		-DOPENSSL_IS_LIBRESSL
 
 PLIST_FILES=	bin/kermit man/man1/kermit.1.gz
 PORTDOCS=	*

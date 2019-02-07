@@ -2,11 +2,12 @@
 
 PORTNAME=	transmission
 DISTVERSION=	2.94
+PORTREVISION?=	3
 CATEGORIES+=	net-p2p
 SLAVEPORT?=	cli
 PKGNAMESUFFIX?=	-cli
 
-MAINTAINER=	lebarondemerde@privacychain.ch
+MAINTAINER=	rigoletto@FreeBSD.org
 COMMENT=	Meta-port for Transmission BitTorrent client
 
 LICENSE+=	MIT
@@ -28,7 +29,7 @@ LIB_DEPENDS+=	libcurl.so:ftp/curl \
 
 USE_HARDENING=	safestack
 
-USES+=		cmake:outsource cpe iconv libtool localbase pkgconfig
+USES+=		cmake cpe iconv libtool localbase pkgconfig
 
 .  if ${SLAVEPORT:Mcli}
 USES+=		ssl

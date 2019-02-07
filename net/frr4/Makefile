@@ -1,9 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	frr
-PORTVERSION=	4.0
+PORTVERSION=	4.0.1
 DISTVERSIONPREFIX=	frr-
-PORTREVISION=	2
 CATEGORIES=	net ipv6
 PKGNAMESUFFIX=	4
 
@@ -16,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 BUILD_DEPENDS=	gawk:lang/gawk
 LIB_DEPENDS=	libjson-c.so:devel/json-c
 
-CONFLICTS=	openbgpd openospfd zebra quagga frr3 frr4
+CONFLICTS=	openbgpd openospfd zebra quagga frr3 frr5 frr6
 
 # FRR uses shared libraries as plugins, but
 # does not fail with safestack as no port depends
@@ -59,7 +58,6 @@ GROUPS=	frr frrvty
 
 CPPFLAGS+=	-I${LOCALBASE}/include
 LDFLAGS+=	-L${LOCALBASE}/lib
-INSTALL_TARGET=	install-strip
 
 # PIM compile but didn't work on FreeBSD
 CONFIGURE_ARGS=	--enable-user=frr \

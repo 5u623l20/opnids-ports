@@ -3,6 +3,7 @@
 
 PORTNAME=	libraw
 PORTVERSION=	0.18.13
+PORTREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.libraw.org/data/
 DISTNAME=	LibRaw-${PORTVERSION}

@@ -12,9 +12,12 @@ COMMENT=	PuppetDB storeconfigs backend terminus module
 
 LICENSE=	APACHE20
 
+DEPRECATED=	Puppet 4 has reached EOL
+EXPIRATION_DATE=2019-02-28
+
 BUILD_DEPENDS=	puppet4>=0:sysutils/puppet4
 
-CONFLICTS_INSTALL=	puppetdb-terminus3-* puppetdb-terminus5-*
+CONFLICTS_INSTALL=	puppetdb-terminus5-* puppetdb-terminus6-*
 USE_RUBY=	yes
 NO_BUILD=	yes
 USES=		gmake

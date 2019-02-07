@@ -3,12 +3,15 @@
 
 PORTNAME=	gui
 DISTVERSION=	${QT4_VERSION}
-PORTREVISION=	4
+PORTREVISION=	6
 CATEGORIES=	x11-toolkits
 PKGNAMEPREFIX=	qt4-
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	Qt graphical user interface module
+
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
 
 LIB_DEPENDS=	libpng.so:graphics/png \
 		libfontconfig.so:x11-fonts/fontconfig
@@ -19,7 +22,7 @@ USES=		pkgconfig qmake:no_env qt-dist:4
 
 HAS_CONFIGURE=	yes
 USE_LDCONFIG=	${PREFIX}/${QT_LIBDIR_REL}
-USE_XORG=	xrender xrandr xinerama inputproto xfixes \
+USE_XORG=	xrender xrandr xinerama xorgproto xfixes \
 		sm xcursor xext x11 ice xi xt
 
 ALL_TARGET=	first

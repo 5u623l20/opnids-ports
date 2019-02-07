@@ -2,9 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	qcad
-PORTVERSION=	3.21.1.1
+PORTVERSION=	3.21.3.11
 DISTVERSIONPREFIX=	v
-PORTREVISION=	2
+PORTREVISION=	1
+#PORTREVISION=	1
 CATEGORIES=	cad
 DIST_SUBDIR=	${PORTNAME}
 
@@ -19,7 +20,7 @@ LIB_DEPENDS=	libquazip5.so:archivers/quazip@qt5
 
 MAKE_JOBS_UNSAFE=yes
 
-USES=		gmake qmake qt:5
+USES=		compiler:c++11-lang gmake qmake qt:5
 USE_GITHUB=	yes
 USE_LDCONFIG=	yes
 USE_QT=		buildtools qmake_build \
@@ -46,6 +47,8 @@ STALIBS=	dxflib stemmer
 SHRDIR=		fonts libraries linetypes patterns plugins scripts themes ts
 #QSCRIPTS should not be installed to avoid conflicts with texlive-base
 QSCRIPTS=	bbox dwg2bmp dwg2pdf dwg2svg
+
+OPTIONS_DEFINE=	EXAMPLES
 
 pre-configure:
 	${REINPLACE_CMD} -e "s|%%DATADIR%%|${DATADIR}|"	\

@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	citra
-PORTVERSION=	s20180718
+PORTVERSION=	s20190203
 PORTREVISION?=	0
 CATEGORIES=	emulators
 
@@ -17,32 +17,30 @@ LICENSE_FILE_GPLv2+ =	${WRKSRC}/license.txt
 LICENSE_FILE_MIT=	${WRKSRC}/externals/enet/LICENSE
 LICENSE_FILE_LGPL21+ =	${_LICENSE_STORE}/LGPL21 # soundtouch
 
-BROKEN_FreeBSD_10=	libc++ does not support C++17 features e.g., weak_from_this
-
 BUILD_DEPENDS=	boost-libs>=1.66:devel/boost-libs
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	citra-emu
-GH_TAGNAME=	7f1303a83
+GH_TAGNAME=	f620c862f
 GH_TUPLE=	citra-emu:ext-libressl-portable:7d01cb0:libressl/externals/libressl \
 		citra-emu:ext-soundtouch:060181e:soundtouch/externals/soundtouch \
-		MerryMage:dynarmic:r1-2-g4b350a3:dynarmic/externals/dynarmic \
+		MerryMage:dynarmic:r1-992-g4e6848d1:dynarmic/externals/dynarmic \
 		arsenm:sanitizers-cmake:f09151b:sanitizers_cmake/externals/cubeb/cmake/sanitizers-cmake \
-		benhoyt:inih:r40:inih/externals/inih/inih \
-		catchorg:Catch2:v2.2.2:catch/externals/catch \
-		fmtlib:fmt:4.0.0-510-g5859e58:fmt/externals/fmt \
-		herumi:xbyak:v5.64:xbyak/externals/xbyak \
+		arun11299:cpp-jwt:v1.1.1:cpp_jwt/externals/cpp-jwt \
+		benhoyt:inih:r42-6-g2023872:inih/externals/inih/inih \
+		catchorg:Catch2:v2.3.0:catch/externals/catch \
+		fmtlib:fmt:5.3.0:fmt/externals/fmt \
+		herumi:xbyak:v5.71:xbyak/externals/xbyak \
 		kinetiknz:cubeb:cubeb-0.2-1039-g44341a1:cubeb/externals/cubeb \
 		lsalzman:enet:39a72ab:enet/externals/enet \
 		neobrain:nihstro:fd69de1:nihstro/externals/nihstro \
-		weidai11:cryptopp:CRYPTOPP_7_0_0-23-gf320e7d9:cryptopp/externals/cryptopp/cryptopp
+		weidai11:cryptopp:CRYPTOPP_7_0_0-23-gf320e7d9:cryptopp/externals/cryptopp/cryptopp \
+		wwylele:teakra:e6ea0ea:teakra/externals/teakra \
+		zeromq:cppzmq:v4.2.3:cppzmq/externals/cppzmq \
+		zeromq:libzmq:v4.2.5:libzmq/externals/libzmq
 
-USES=		cmake:outsource compiler:c++14-lang iconv localbase:ldflags
+USES=		cmake compiler:c++17-lang iconv localbase:ldflags
 USE_SDL=	sdl2
-EXTRA_PATCHES+=	${EXTRA_PATCHES_${OPSYS}_${OSREL:R}}
-EXTRA_PATCHES_FreeBSD_10=	${PATCHDIR}/extra-patch-c++14
-CXXFLAGS+=	-D_GLIBCXX_USE_C99 -D_GLIBCXX_USE_C99_MATH_TR1 \
-		-D_DECLARE_C99_LDBL_MATH # XXX ports/193528
 LDFLAGS+=	-Wl,--as-needed # Qt5Network
 TEST_TARGET=	test
 

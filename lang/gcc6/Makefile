@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	gcc
-PORTVERSION=	6.4.0
-PORTREVISION=	7
+PORTVERSION=	6.5.0
+PORTREVISION=	3
 CATEGORIES=	lang java
 MASTER_SITES=	GCC
 PKGNAMESUFFIX=	${SUFFIX}
@@ -14,6 +14,7 @@ COMMENT=	GNU Compiler Collection 6
 LICENSE=	GPLv3 GPLv3RLE
 LICENSE_COMB=	multi
 
+DEPRECATED=	Unsupported by upstream. Use GCC 7 or newer instead.
 ONLY_FOR_ARCHS=	aarch64 amd64 arm armv6 armv7 i386 powerpc powerpc64 powerpcspe sparc64
 BROKEN_sparc64=	fails to configure: cannot compute suffix of object files: cannot compile
 
@@ -28,8 +29,6 @@ USE_HARDENING=	pie:off relro:off retpoline:off
 .if defined(MAINTAINER_MODE)
 BUILD_DEPENDS+=	runtest:misc/dejagnu
 .endif
-
-CONFLICTS=	gcc6-devel-6.*
 
 CPE_VENDOR=	gnu
 
@@ -87,7 +86,7 @@ USE_GCC=	5	# This port requires at least GCC 4.9, and we need
 			# USE_GCC=yes or USE_GCC=X+ are not an option).
 
 .elif ${ARCH} == powerpcspe
-CONFIGURE_ARGS+=	--with-cpu=8540 --enable-e500_double --without-fp
+CONFIGURE_ARGS+=	--with-cpu=8548 --enable-e500_double --without-fp
 .endif
 
 LANGUAGES:=	c,c++,objc,fortran
@@ -119,7 +118,7 @@ CONFIGURE_ARGS+=--disable-nls \
 		--with-system-zlib
 MAKE_ARGS+=	MAKEINFOFLAGS="--no-split"
 USE_LDCONFIG=	${TARGLIB}
-PLIST_SUB=	GCC_VERSION=${GCC_VERSION} \
+PLIST_SUB+=	GCC_VERSION=${GCC_VERSION} \
 		GNU_HOST=${CONFIGURE_TARGET} \
 		SUFFIX=${SUFFIX}
 INFO=		gcc${SUFFIX}/cpp \

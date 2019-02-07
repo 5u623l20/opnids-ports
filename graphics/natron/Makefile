@@ -1,13 +1,17 @@
 # $FreeBSD$
 
 PORTNAME=	natron
-PORTVERSION=	2.3.13
+PORTVERSION=	2.3.14
+PORTREVISION=	5
 CATEGORIES=	graphics
 
 MAINTAINER=	olivier@FreeBSD.org
 COMMENT=	Video compositing software
 
 LICENSE=	GPLv2
+
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
 
 ONLY_FOR_ARCHS=	amd64
 BUILD_DEPENDS=	pyside${PYTHON_PKGNAMESUFFIX}>0:devel/pyside

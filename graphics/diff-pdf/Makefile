@@ -4,6 +4,7 @@ PORTNAME=	diff-pdf
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.2-27
 DISTVERSIONSUFFIX=	-gc4d6722
+PORTREVISION=	1
 CATEGORIES=	graphics
 
 MAINTAINER=	uzsolt@uzsolt.hu
@@ -24,5 +25,8 @@ USE_GNOME=	cairo glib20
 USE_WX=		2.8+
 
 PLIST_FILES=	bin/${PORTNAME}
+
+post-patch:
+	@${REINPLACE_CMD} '/AM_PATH_WXCONFIG/ s,3.0.0,2.8.0,' ${WRKSRC}/configure.ac
 
 .include <bsd.port.mk>

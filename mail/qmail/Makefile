@@ -69,7 +69,6 @@ SMTPEXECCHECK_DESC=		Smtp DOS/Windows executable detection
 SMTPEXTFORK_DESC=		Allow qmail-smtpd fork external progs
 SMTP_AUTH_PATCH_DESC=		Provide SMTP Authentication
 SPF_PATCH_DESC=			Implement SPF checker
-SRS_DESC=			Sender Rewriting Scheme support
 TARPIT_PATCH_DESC=		Implement TARPIT functions
 TLS_DESC=			SMTP TLS support
 TLS_DEBUG_DESC=			Enable additional debug information
@@ -135,6 +134,8 @@ BARRIER_DNS_CNAME=		yes
 
 PATCH_DIST_STRIP+=	-p1
 
+.include <bsd.port.options.mk>
+
 .if !defined(BARRIER_DNS_PATCH)
 # Patch necessary to cope with non-RFC >512 dns entries
 # Since AOL has been using those, the problem has skyrocketed from minor to
@@ -169,6 +170,9 @@ PATCHFILES+=	netqmail-mysql-${MYSQL_PATCH_VERSION}.patch:mysql
 PATCH_SITES+=	http://inoa.net/qmail-tls/:tls
 TLS_PATCH_NAME=	${QMAIL_PORTNAME}-${QMAIL_VERSION}-tls-${TLS_PATCH_DATE}.patch
 PATCHFILES+=	${TLS_PATCH_NAME}:tls
+.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1200000
+EXTRA_PATCHES+=	${FILESDIR}/netqmail-1.06-tls-20160918-freebsd-12.patch
+.endif
 .endif
 
 PATCH_SITES+=	LOCAL/bdrewery/qmail/:dns,sendmail_flagf,rfc2821,ldap,mysql,tls,quota,blockexec,doublebounce,spf,spf_tls,localtime,qmtpc_outgoingip
@@ -226,7 +230,7 @@ OPTIONS_DEFINE+=TLS ALTQUEUE BIGBROTHER BIGTODO BIND_8_COMPAT CLEARTEXTPASSWD \
 		DASH_EXT DATA_COMPRESS EXTERNAL_TODO IGNOREVERISIGN \
 		QLDAP_CLUSTER QMQP_COMPRESS QUOTATRASH SMTPEXECCHECK \
 		AUTOMAILDIRMAKE AUTOHOMEDIRMAKE LDAP_DEBUG SMTPEXTFORK \
-		XF_QUITASAP SENDERCHECK4 ENHACELOGS GRTDELAY SRS
+		XF_QUITASAP SENDERCHECK4 ENHACELOGS GRTDELAY
 
 OPTIONS_DEFAULT+=	TLS DASH_EXT DATA_COMPRESS EXTERNAL_TODO QLDAP_CLUSTER \
 			QLDAP_CLUSTER QMQP_COMPRESS SMTPEXECCHECK \
@@ -296,7 +300,6 @@ PKGMESSAGE_SUFFIX=	ldap
 PLIST_SUB+=	LDAP="" NO_LDAP="@comment "
 .else
 PLIST_SUB+=	LDAP="@comment " NO_LDAP=""
-PLIST_SUB+=	SRS="@comment "
 .endif
 
 .if defined(SLAVE_SPAMCONTROL)
@@ -384,8 +387,6 @@ TLS_USES=		ssl
 NO_MTREE=	yes
 NO_PREFIX_RMDIR=yes
 
-.include <bsd.port.options.mk>
-
 .if ${ARCH} == "amd64" && !defined(SLAVE_LDAP) \
     && !defined(SLAVE_SPAMCONTROL)
 EXTRA_PATCHES+=			${FILESDIR}/extra-patch-amd64
@@ -418,16 +419,6 @@ CFLAGS+=	-DDEBUG
 LDAPFLAGS+=	-D${param}
 .  endif
 . endfor
-
-. if ${PORT_OPTIONS:MSRS}
-BUILD_DEPENDS+=	srs:mail/libsrs2
-MASTER_SITES+=	http://qmail-ldap-smtpauthuser.googlecode.com/svn/trunk/:srs_ldap
-BROKEN=		Unfetchable (google code has gone away)
-DEPRECATED=	Unfetchable for more than six months (google code has gone away)
-EXPIRATION_DATE=	2017-04-30
-SRS_LDAP_PATCH=		qmail-ldap-1.03-20060201-SRS.patch
-DISTFILES+=	${SRS_LDAP_PATCH}:srs_ldap
-. endif
 
 .endif
 
@@ -777,9 +768,6 @@ post-patch:
 . if defined(LDAPFLAGS)
 	@${REINPLACE_CMD} "s|^#LDAPFLAGS=.*$$|LDAPFLAGS=${LDAPFLAGS}|" \
 		${WRKSRC}/Makefile
-. endif
-. if ${PORT_OPTIONS:MSRS}
-	@${PATCH} -d ${WRKSRC} < ${DISTDIR}/${DIST_SUBDIR}/${SRS_LDAP_PATCH}
 . endif
 .endif
 .if defined(EXT_BIG_TODO_PATCH)

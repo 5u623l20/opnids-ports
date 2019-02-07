@@ -10,13 +10,13 @@
     SUBDIR += bcftools
     SUBDIR += bedtools
     SUBDIR += biococoa
-    SUBDIR += blat
     SUBDIR += bowtie
     SUBDIR += bowtie2
     SUBDIR += bwa
     SUBDIR += canu
     SUBDIR += cd-hit
     SUBDIR += cdbfasta
+    SUBDIR += checkm
     SUBDIR += chemeq
     SUBDIR += clustal-omega
     SUBDIR += clustalw
@@ -25,6 +25,7 @@
     SUBDIR += cytoscape
     SUBDIR += ddocent
     SUBDIR += diamond
+    SUBDIR += dsr-pdb
     SUBDIR += emboss
     SUBDIR += exonerate
     SUBDIR += fasta
@@ -35,13 +36,18 @@
     SUBDIR += fastqc
     SUBDIR += fasttree
     SUBDIR += fastx-toolkit
+    SUBDIR += figtree
     SUBDIR += fluctuate
     SUBDIR += freebayes
     SUBDIR += garlic
+    SUBDIR += gatk
     SUBDIR += gff2ps
     SUBDIR += gmap
     SUBDIR += gperiodic
+    SUBDIR += graphlan
     SUBDIR += grappa
+    SUBDIR += groopm
+    SUBDIR += hisat2
     SUBDIR += hmmer
     SUBDIR += htslib
     SUBDIR += hyphy
@@ -66,9 +72,9 @@
     SUBDIR += mummer
     SUBDIR += muscle
     SUBDIR += ncbi-blast+
+    SUBDIR += ncbi-cxx-toolkit
     SUBDIR += ncbi-toolkit
     SUBDIR += ngs-sdk
-    SUBDIR += njplot
     SUBDIR += p5-AcePerl
     SUBDIR += p5-Bio-ASN1-EntrezGene
     SUBDIR += p5-Bio-Coordinate
@@ -97,6 +103,8 @@
     SUBDIR += phyml
     SUBDIR += plinkseq
     SUBDIR += primer3
+    SUBDIR += prodigal
+    SUBDIR += prodigy-lig
     SUBDIR += protomol
     SUBDIR += psi88
     SUBDIR += py-Genesis-PyAPI
@@ -104,8 +112,14 @@
     SUBDIR += py-biopython
     SUBDIR += py-bx-python
     SUBDIR += py-cutadapt
+    SUBDIR += py-fastTSNE
+    SUBDIR += py-gffutils
+    SUBDIR += py-gtfparse
+    SUBDIR += py-loompy
     SUBDIR += py-macs2
     SUBDIR += py-orange3-bioinformatics
+    SUBDIR += py-orange3-single-cell
+    SUBDIR += py-pyfaidx
     SUBDIR += py-pysam
     SUBDIR += pycogent
     SUBDIR += pyfasta
@@ -130,16 +144,14 @@
     SUBDIR += tRNAscan-SE
     SUBDIR += t_coffee
     SUBDIR += tabixpp
-    SUBDIR += tinker
     SUBDIR += treepuzzle
     SUBDIR += trimadap
     SUBDIR += trimmomatic
     SUBDIR += ugene
     SUBDIR += unanimity
-    SUBDIR += vcftools
     SUBDIR += vcflib
+    SUBDIR += vcftools
     SUBDIR += velvet
     SUBDIR += wise
-    SUBDIR += xmolwt
 
 .include <bsd.port.subdir.mk>

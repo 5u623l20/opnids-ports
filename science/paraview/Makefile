@@ -3,9 +3,13 @@
 
 PORTNAME=	paraview
 DISTVERSION=	5.5.1
+PORTREVISION=	8
 CATEGORIES=	science graphics
 MASTER_SITES=	http://www.paraview.org/files/v${VERMAJORMINOR}/
 DISTNAME=	ParaView-v${PORTVERSION}
+
+PATCH_SITES=	https://gitlab.kitware.com/${PORTNAME}/${PORTNAME}/commit/
+PATCHFILES=	931c779dde84.patch:-p1
 
 MAINTAINER=	devel@stasyan.com
 COMMENT=	Powerful scientific data visualization application
@@ -14,6 +18,8 @@ LICENSE=	ParaView_License_1.2
 LICENSE_NAME=	ParaView_License
 LICENSE_FILE=	${PATCH_WRKSRC}/License_v1.2.txt
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+USE_HARDENING=	pie:off relro:off
 
 BUILD_DEPENDS=	${PYTHON_SITELIBDIR}/matplotlib/pyplot.py:math/py-matplotlib@${PY_FLAVOR}
 LIB_DEPENDS=	libhdf5.so:science/hdf5 \
@@ -31,14 +37,14 @@ LIB_DEPENDS=	libhdf5.so:science/hdf5 \
 RUN_DEPENDS=	bash:shells/bash	\
 		${PYTHON_SITELIBDIR}/matplotlib/pyplot.py:math/py-matplotlib@${PY_FLAVOR}
 
-USES=		alias cmake:outsource jpeg localbase python:2.7 qt:5 shebangfix
-USE_QT=		core gui help network sql widgets x11extras buildtools_build qmake_build
+USES=		alias cmake jpeg localbase python:2.7 qt:5 shebangfix
+USE_QT=		core gui help network sql widgets x11extras xmlpatterns buildtools_build qmake_build
 USE_GL=		gl glu
-USE_XORG=	x11 xt xext ice xdmcp xau xcb xfixes xdamage xxf86vm xrender sm dri3proto
+USE_XORG=	x11 xt xext ice xdmcp xau xcb xfixes xdamage xxf86vm xrender sm xorgproto
 USE_LDCONFIG=	yes
 USE_GSTREAMER=	yes
 
-USE_HARDENING=	pie:off relro:off
+CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}pygments
 
 CMAKE_ARGS+=	-DBUILD_SHARED_LIBS="ON" \
 		-DVTK_USE_SYSTEM_PNG="ON" \

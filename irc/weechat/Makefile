@@ -2,21 +2,21 @@
 # $FreeBSD$
 
 PORTNAME=	weechat
-PORTVERSION=	2.2
+PORTVERSION=	2.3
 CATEGORIES=	irc
 MASTER_SITES=	https://weechat.org/files/src/
 
 MAINTAINER=	brnrd@FreeBSD.org
 COMMENT=	Lightweight and user friendly ncurses based IRC client
 
-LICENSE=	GPLv3
+LICENSE=	GPLv3+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS+=	libcurl.so:ftp/curl \
 		libgcrypt.so:security/libgcrypt \
 		libgpg-error.so:security/libgpg-error
 
-USES=		cmake:outsource,noninja ncurses libtool tar:xz
+USES=		cmake:noninja ncurses libtool tar:xz
 USE_LDCONFIG=	yes
 
 USE_HARDENING=	safestack

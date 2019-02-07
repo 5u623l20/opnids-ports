@@ -2,6 +2,7 @@
 
 PORTNAME=	kget
 DISTVERSION=	${KDE_APPLICATIONS_VERSION}
+PORTREVISION=	1
 CATEGORIES=	net kde kde-applications
 
 MAINTAINER=	kde@FreeBSD.org
@@ -17,7 +18,7 @@ LIB_DEPENDS=    libKF5Torrent.so:net-p2p/libktorrent  \
 		libqca-qt5.so:devel/qca@qt5 \
 		libqgpgme.so:security/gpgme-qt5
 
-USES=		cmake:outsource kde:5 qt:5 shebangfix sqlite tar:xz
+USES=		cmake compiler:c++11-lang kde:5 qt:5 shebangfix sqlite tar:xz
 
 USE_KDE=	archive auth bookmarks codecs completion config configwidgets \
 		coreaddons crash dbusaddons emoticons guiaddons i18n \
@@ -34,5 +35,7 @@ SHEBANG_FILES=	conf/*.pl
 
 MAKE_ENV=	XDG_CONFIG_HOME=/dev/null
 CONFIGURE_ENV=	XDG_CONFIG_HOME=/dev/null
+
+OPTIONS_DEFINE=	DOCS
 
 .include <bsd.port.mk>

@@ -3,6 +3,7 @@
 
 PORTNAME=	inkscape
 PORTVERSION=	0.92.3
+PORTREVISION=	7
 CATEGORIES=	graphics gnome
 MASTER_SITES=	https://inkscape.org/en/gallery/item/12187/
 
@@ -27,12 +28,12 @@ LIB_DEPENDS=	libpopt.so:devel/popt \
 		libfreetype.so:print/freetype2 \
 		libpotrace.so:graphics/libpotrace \
 		libpng.so:graphics/png \
-		libMagick++-6.so:graphics/ImageMagick
+		libMagick++-6.so:graphics/ImageMagick6
 
-USE_GNOME=	gtkmm24 libxml2 libxslt
 USES=		compiler:c++11-lib cmake cpe desktop-file-utils gnome \
 		iconv:wchar_t jpeg pathfix pkgconfig python:2.7,build \
 		shebangfix tar:bzip2
+USE_GNOME=	gtkmm24 libxml2 libxslt
 USE_XORG=	x11
 INSTALLS_ICONS=	yes
 CMAKE_ARGS+=	-DWITH_GNOME_VFS:BOOL=NO
@@ -81,5 +82,8 @@ USES+=			gettext
 post-patch:
 	@${REINPLACE_CMD} -e 's|COMMAND python|COMMAND ${PYTHON_VERSION}|g' \
 		${WRKSRC}/share/*/CMakeLists.txt
+	# Obtained from Arch Linux
+	@${REINPLACE_CMD} -e 's|gTrue|true|g' -e 's|gFalse|false|g' -e 's|GBool|bool|g' \
+		${WRKSRC}/src/extension/internal/pdfinput/pdf-parser.*
 
 .include <bsd.port.mk>

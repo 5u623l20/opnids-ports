@@ -3,6 +3,7 @@
 
 PORTNAME=	efl
 DISTVERSION=	1.20.7
+PORTREVISION=	5
 CATEGORIES=	devel enlightenment
 MASTER_SITES=	http://download.enlightenment.org/rel/libs/${PORTNAME}/
 DIST_SUBDIR=	enlightenment
@@ -19,8 +20,10 @@ LIB_DEPENDS=	libgif.so:graphics/giflib \
 		libfreetype.so:print/freetype2 \
 		libfontconfig.so:x11-fonts/fontconfig \
 		libdbus-1.so:devel/dbus \
-		libsndfile.so:audio/libsndfile \
-		libunwind.so:devel/libunwind
+		libsndfile.so:audio/libsndfile
+
+# lib/libeio.so.1
+CONFLICTS_INSTALL=	libeio
 
 GNU_CONFIGURE=	yes
 USES=		autoreconf compiler:c++14-lang gettext-tools gmake iconv jpeg \
@@ -81,7 +84,8 @@ PHYSICS_CONFIGURE_ENABLE=	physics
 PULSEAUDIO_LIB_DEPENDS=		libpulse.so:audio/pulseaudio
 PULSEAUDIO_CONFIGURE_ENABLE=	pulseaudio
 
-WAYLAND_BROKEN=			WAYLAND option is broken: https://phab.enlightenment.org/T7116
+WAYLAND_BROKEN=			ERROR: epoll_create() is deprecated, use epoll_create1(EPOLL_CLOEXEC).
+WAYLAND_BUILD_DEPENDS=		wayland-protocols>=1.7:graphics/wayland-protocols
 WAYLAND_LIB_DEPENDS=		libepoll-shim.so:devel/libepoll-shim \
 				libxkbcommon.so:x11/libxkbcommon \
 				libwayland-client.so:graphics/wayland \
@@ -90,7 +94,7 @@ WAYLAND_CFLAGS=			-I${LOCALBASE}/include/libepoll-shim
 WAYLAND_LDFLAGS=		-lepoll-shim
 WAYLAND_CONFIGURE_ENABLE=	wayland
 
-WAYLAND_EGL_LIB_DEPENDS=	libwayland-egl.so:graphics/mesa-libs
+WAYLAND_EGL_LIB_DEPENDS=	libwayland-egl.so:graphics/wayland
 WAYLAND_EGL_CONFIGURE_ENABLE=	egl
 WAYLANG_EGL_USE=		GL=egl
 WAYLAND_EGL_IMPLIES=		WAYLAND OPENGLES
@@ -163,6 +167,11 @@ CONFIGURE_ARGS+=		--disable-ibus --with-glib=no
 
 .if empty(PORT_OPTIONS:MOPENGL) && empty(PORT_OPTIONS:MOPENGLES)
 CONFIGURE_ARGS+=		--with-opengl=none
+.endif
+
+# keep in sync with all platforms where libunwind is available
+.if (${ARCH} == amd64 || ${ARCH} == i386)
+LIB_DEPENDS+=	libunwind.so:devel/libunwind
 .endif
 
 .if ${ARCH} == "powerpc" || ${ARCH} == "sparc64"

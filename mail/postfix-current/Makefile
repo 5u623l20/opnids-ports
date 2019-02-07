@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	postfix
-DISTVERSION=	3.4-20180708
+DISTVERSION=	3.4-20181202
 PORTREVISION?=	0
 PORTEPOCH=	5
 CATEGORIES=	mail ipv6
@@ -31,7 +31,6 @@ CONFLICTS_INSTALL?=	courier-0.* opensmtpd-[0-9]* \
 		postfix-[2|3].* postfix-base-[2|3].* postfix-sasl-[2|3].*
 
 USERS=		postfix
-USE_HARDENING=	safestack
 GROUPS=		mail maildrop postfix
 USES=		shebangfix cpe
 SHEBANG_FILES=	auxiliary/qshape/qshape.pl
@@ -46,7 +45,7 @@ OPTIONS_DEFINE=	BDB BLACKLISTD CDB DOCS EAI INST_BASE LDAP LDAP_SASL \
 
 OPTIONS_RADIO=		RG1
 OPTIONS_RADIO_RG1=	SASLKRB5 SASLKMIT
-OPTIONS_DEFAULT=	EAI PCRE TLS
+OPTIONS_DEFAULT?=	EAI PCRE TLS
 
 BDB_USES=		bdb
 BLACKLISTD_EXTRA_PATCHES=	${FILESDIR}/extra-patch-blacklistd
@@ -199,7 +198,7 @@ POSTFIX_AUXLIBS+=	-L${BDB_LIB_DIR} -l${BDB_LIB_NAME}
 .endif
 
 .if ${PORT_OPTIONS:MBLACKLISTD}
-. if ${OPSYS} == FreeBSD && (${OSVERSION} >= 1100122)
+. if ${OPSYS} == FreeBSD
 POSTFIX_AUXLIBS+=	-lblacklist
 . else
 IGNORE=	blacklistd is only supported on FreeBSD >= 11.0

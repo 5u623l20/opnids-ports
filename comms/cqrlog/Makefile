@@ -4,6 +4,7 @@
 PORTNAME=	cqrlog
 PORTVERSION=	2.3.0
 DISTVERSIONPREFIX=	v
+PORTREVISION=	1
 CATEGORIES=	comms hamradio
 PKGNAMESUFFIX=	${LAZARUS_PKGNAMESUFFIX}
 
@@ -14,10 +15,11 @@ LICENSE=	GPLv2
 
 LIB_DEPENDS=	libhamlib.so:comms/hamlib
 
-USES=		fpc lazarus:flavors shebangfix ssl:run dos2unix
+USES=		fpc lazarus:flavors shebangfix ssl:run dos2unix mysql
 USE_GITHUB=	yes
 GH_ACCOUNT=	ok2cqr
 
+LLD_UNSAFE=	yes
 SHEBANG_FILES=	tools/cqrlog-apparmor-fix \
 		voice_keyer/voice_keyer.sh
 USE_FPC=	cairo fcl-base chm fcl-db fcl-image fcl-json fcl-net fcl-web \

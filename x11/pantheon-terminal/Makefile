@@ -12,6 +12,10 @@ COMMENT=	Lightweight, beautiful, and simple terminal from Elementary OS
 LICENSE=	GPLv3
 LICENSE_FILE=	${WRKSRC}/COPYING
 
+BROKEN=		Doesn't build with vala 0.40+
+DEPRECATED=	Broken for more than 6 months
+EXPIRATION_DATE=	2019-03-05
+
 LIB_DEPENDS=	libgee-0.8.so:devel/libgee \
 		libgnutls.so:security/gnutls \
 		libgranite.so:x11-toolkits/granite \
@@ -19,7 +23,7 @@ LIB_DEPENDS=	libgee-0.8.so:devel/libgee \
 BUILD_DEPENDS=	valac:lang/vala
 RUN_DEPENDS=	dbus-send:devel/dbus
 
-USES=		cmake:outsource desktop-file-utils gettext pkgconfig
+USES=		cmake desktop-file-utils gettext pkgconfig
 USE_GITHUB=	yes
 GH_ACCOUNT=	elementary
 GH_PROJECT=	terminal

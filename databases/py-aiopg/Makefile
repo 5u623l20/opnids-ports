@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	aiopg
-PORTVERSION=	0.14.0
+PORTVERSION=	0.15.0
 PORTREVISION=	1
 CATEGORIES=	databases python
 MASTER_SITES=	CHEESESHOP
@@ -19,7 +19,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psycopg2>=2.7.0:databases/py-psycopg2@${PY_F
 OPTIONS_DEFINE=	DOCS
 
 USES=		pgsql:9.2+ python:3.4+
-USE_PYTHON=	autoplist concurrent distutils setuptools
+USE_PYTHON=	autoplist concurrent distutils
 
 PORTDOCS=	PKG-INFO README.rst CHANGES.txt
 

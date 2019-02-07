@@ -3,7 +3,7 @@
 
 PORTNAME=	luminance-hdr
 DISTVERSION=	2.4.0
-PORTREVISION=	23
+PORTREVISION=	27
 CATEGORIES=	graphics
 MASTER_SITES=	SF/qtpfsgui/luminance/${DISTVERSION}
 PKGNAMESUFFIX=	-qt5
@@ -16,13 +16,13 @@ LICENSE=	GPLv2
 BUILD_DEPENDS=	${LOCALBASE}/include/fftw3.h:math/fftw3
 LIB_DEPENDS=	libfftw3f.so:math/fftw3-float \
 		libexiv2.so:graphics/exiv2 \
-		libIlmImf.so:graphics/OpenEXR \
+		libIlmImf.so:graphics/openexr \
 		libtiff.so:graphics/tiff \
 		libgsl.so:math/gsl \
 		libraw_r.so:graphics/libraw \
 		libboost_system.so:devel/boost-libs
 
-USES=		cmake:outsource jpeg pkgconfig qt:5 tar:bzip2
+USES=		cmake jpeg pkgconfig qt:5 tar:bzip2
 USE_QT=		concurrent gui printsupport sql webkit xml \
 		buildtools_build linguist_build qmake_build \
 		imageformats_run

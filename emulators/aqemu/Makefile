@@ -3,6 +3,7 @@
 PORTNAME=	aqemu
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.9.2
+PORTREVISION=	2
 CATEGORIES=	emulators
 
 MAINTAINER=	ports@FreeBSD.org
@@ -19,5 +20,7 @@ USE_QT=		buildtools_build linguisttools_build qmake_build \
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	tobimensch
+
+OPTIONS_DEFINE=	DOCS
 
 .include <bsd.port.mk>

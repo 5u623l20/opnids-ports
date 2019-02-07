@@ -3,7 +3,7 @@
 PORTNAME=	lazarus
 PORTVERSION=	1.8.4
 PKGNAMESUFFIX?=  -gtk2
-PORTREVISION?=	0
+PORTREVISION?=	1
 CATEGORIES=	editors devel
 MASTER_SITES=	SF/${PORTNAME}/Lazarus%20Zip%20_%20GZip/Lazarus%20${PORTVERSION} \
 		LOCAL/acm/freepascal
@@ -31,6 +31,7 @@ MAKE_ENV=	OPT=${OPT}
 PLIST=		${WRKDIR}/pkg-plist
 WRKSRC?=	${WRKDIR}/${PORTNAME}
 DATADIR?=	${PREFIX}/share/${PORTNAME}-${PORTVERSION}
+LLD_UNSAFE=	yes
 
 OPTIONS_DEFINE=		GDB
 GDB_DESC=		Install a newest version  of gdb

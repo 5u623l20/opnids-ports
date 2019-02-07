@@ -1,9 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	puppet
-PORTVERSION=	4.10.11
+PORTVERSION=	4.10.12
 CATEGORIES=	sysutils
-MASTER_SITES=	http://downloads.puppetlabs.com/puppet/
+MASTER_SITES=	https://downloads.puppetlabs.com/puppet/
 PKGNAMESUFFIX=	4
 
 MAINTAINER=	puppet@FreeBSD.org
@@ -11,6 +11,9 @@ COMMENT=	Configuration management framework written in Ruby
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
+
+DEPRECATED=	Puppet 4 has reached EOL
+EXPIRATION_DATE=2019-02-28
 
 BUILD_DEPENDS=	rubygem-hiera>=2.0:sysutils/rubygem-hiera \
 		rubygem-json_pure>=0:devel/rubygem-json_pure
@@ -20,7 +23,7 @@ RUN_DEPENDS=	rubygem-hiera>=2.0:sysutils/rubygem-hiera \
 
 USES=		cpe
 CPE_VENDOR=	puppetlabs
-CONFLICTS_INSTALL=	puppet5-*
+CONFLICTS_INSTALL=	puppet5-* puppet6-*
 NO_ARCH=	yes
 NO_BUILD=	yes
 USE_RUBY=	yes

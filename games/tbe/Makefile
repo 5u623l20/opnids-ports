@@ -3,7 +3,7 @@
 PORTNAME=	tbe
 PORTVERSION=	0.9.2.1
 DISTVERSIONPREFIX=	v
-PORTREVISION=	3
+PORTREVISION=	5
 PORTEPOCH=	1
 CATEGORIES=	games
 
@@ -12,6 +12,9 @@ COMMENT=	The Butterfly Effect
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
+
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
 
 BUILD_DEPENDS=	${LOCALBASE}/bin/unzip:archivers/unzip
 
@@ -23,6 +26,8 @@ USE_QT=		corelib gui linguisttools_build moc_build qmake_build rcc_build \
 		svg uic_build xml
 
 PORTDOCS=	*
+
+OPTIONS_DEFINE=	DOCS
 
 post-patch:
 	@${REINPLACE_CMD} 's/ make/ $$(MAKE)/' \

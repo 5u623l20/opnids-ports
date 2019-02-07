@@ -3,14 +3,20 @@
 
 PORTNAME=	qtfm
 DISTVERSION=	5.5
+PORTREEVISION=	1
 CATEGORIES=	x11-fm
 MASTER_SITES=	http://www.qtfm.org/
 
-MAINTAINER=	lichray@gmail.com
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Small, lightweight file manager based on pure Qt
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
+
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
+
+LIB_DEPENDS=	libinotify.so:devel/libinotify
 
 USES=		dos2unix qmake qt:4
 DOS2UNIX_REGEX=	.*\.(h|cpp)

@@ -33,6 +33,7 @@
     SUBDIR += dynagui
     SUBDIR += dynamips-community
     SUBDIR += e-uae
+    SUBDIR += emulationstation
     SUBDIR += fceux
     SUBDIR += fmsx
     SUBDIR += frodo
@@ -43,8 +44,6 @@
     SUBDIR += fuse-utils
     SUBDIR += gbe
     SUBDIR += gem5
-    SUBDIR += generator
-    SUBDIR += generator-cbiere
     SUBDIR += gens
     SUBDIR += gngb
     SUBDIR += gngeo
@@ -68,11 +67,11 @@
     SUBDIR += libspectrum
     SUBDIR += linux-c6
     SUBDIR += linux-c7
+    SUBDIR += linux-power9-functional-sim
     SUBDIR += linux_base-c6
     SUBDIR += linux_base-c7
     SUBDIR += lisaem
     SUBDIR += loemu
-    SUBDIR += m2000
     SUBDIR += mame
     SUBDIR += mastergear
     SUBDIR += mednafen
@@ -111,13 +110,12 @@
     SUBDIR += ppsspp
     SUBDIR += ppsspp-qt5
     SUBDIR += py-gns3-converter
-    SUBDIR += py-nova
     SUBDIR += py-unicorn
     SUBDIR += q4wine
     SUBDIR += qemu
     SUBDIR += qemu-cheri
     SUBDIR += qemu-devel
-    SUBDIR += qemu-ppcnv
+    SUBDIR += qemu-powernv
     SUBDIR += qemu-riscv
     SUBDIR += qemu-sbruno
     SUBDIR += qemu-user-static
@@ -132,8 +130,6 @@
     SUBDIR += rubygem-fission
     SUBDIR += simh
     SUBDIR += skyeye
-    SUBDIR += snes9express
-    SUBDIR += snes9x
     SUBDIR += snes9x-gtk
     SUBDIR += spim
     SUBDIR += stella
@@ -152,7 +148,6 @@
     SUBDIR += vgb-bin
     SUBDIR += vgba-bin
     SUBDIR += vice
-    SUBDIR += virtio-kmod
     SUBDIR += virtualbox-ose
     SUBDIR += virtualbox-ose-additions
     SUBDIR += virtualbox-ose-additions-nox11
@@ -176,8 +171,8 @@
     SUBDIR += x49gp
     SUBDIR += xbraitenberg
     SUBDIR += xcpc
-    SUBDIR += xen
-    SUBDIR += xen-kernel
+    SUBDIR += xen-kernel411
+    SUBDIR += xen-kernel47
     SUBDIR += xhomer
     SUBDIR += xsystem35
     SUBDIR += xzx

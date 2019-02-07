@@ -3,6 +3,7 @@
 
 PORTNAME=	darktable
 PORTVERSION=	2.4.4
+PORTREVISION=	3
 CATEGORIES=	graphics
 MASTER_SITES=	https://github.com/darktable-org/${PORTNAME}/releases/download/release-${PORTVERSION:C/\.rc/rc/}/
 
@@ -27,7 +28,7 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 ONLY_FOR_ARCHS=		amd64
 ONLY_FOR_ARCHS_REASON=	uses SSE instructions and 64-bit address space
 
-USES=		cmake:outsource compiler:c++11-lib desktop-file-utils	\
+USES=		cmake compiler:c++11-lib desktop-file-utils	\
 		jpeg pkgconfig sqlite tar:xz
 USE_GL=		glu
 USE_GNOME=	cairo gtk30 intltool librsvg2 libxml2
@@ -81,8 +82,8 @@ NLS_USES_OFF=		gettext-runtime
 NLS_CMAKE_OFF=		-DUSE_NLS:BOOL=OFF
 NLS_LDFLAGS=		-L${LOCALBASE}/lib -lintl
 
-OPENEXR_LIB_DEPENDS=	libIlmImf.so:graphics/OpenEXR \
-			libIlmThread-2_2.so:graphics/ilmbase
+OPENEXR_LIB_DEPENDS=	libIlmImf.so:graphics/openexr \
+			libIlmThread.so:graphics/ilmbase
 OPENEXR_CMAKE_OFF=	-DUSE_OPENEXR:BOOL=OFF
 
 OPENJPEG_LIB_DEPENDS=	libopenjp2.so:graphics/openjpeg

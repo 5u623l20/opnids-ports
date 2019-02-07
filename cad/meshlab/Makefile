@@ -3,15 +3,18 @@
 
 PORTNAME=	meshlab
 PORTVERSION=	1.3.3
-PORTREVISION=	7
+PORTREVISION=	10
 CATEGORIES=	cad
 MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/MeshLab%20v${PORTVERSION}/
 DISTNAME=	MeshLabSrc_AllInc_v${PORTVERSION:C|\.||g}
 
-MAINTAINER=	neel@neelc.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	3D triangular meshes processing and editing tool
 
 LICENSE=	GPLv2
+
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
 
 BROKEN_aarch64=		fails to compile: constant expression evaluates to -1 which cannot be narrowed to type char
 BROKEN_armv6=		fails to compile: constant expression evaluates to -1 which cannot be narrowed to type char

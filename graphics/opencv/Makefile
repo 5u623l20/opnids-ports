@@ -3,7 +3,7 @@
 
 PORTNAME=	opencv
 PORTVERSION=	3.4.1
-PORTREVISION=	1
+PORTREVISION=	13
 CATEGORIES=	graphics
 
 MAINTAINER=	ports@FreeBSD.org
@@ -22,7 +22,7 @@ LIB_DEPENDS=	libprotobuf.so:devel/protobuf \
 		libtesseract.so:graphics/tesseract
 .endif
 
-USES=		cmake:outsource compiler:c++14-lang localbase:ldflags pkgconfig
+USES=		cmake compiler:c++14-lang localbase:ldflags pkgconfig
 
 USE_GITHUB=	yes
 USE_LDCONFIG=	yes
@@ -210,7 +210,7 @@ GDCM_DESC=		Open source DICOM library
 GDCM_LIB_DEPENDS=	libgdcmMSFF.so:devel/gdcm
 GDCM_CMAKE_BOOL=	WITH_GDCM
 
-OPENEXR_LIB_DEPENDS=	libIlmImf.so:graphics/OpenEXR
+OPENEXR_LIB_DEPENDS=	libIlmImf.so:graphics/openexr
 OPENEXR_CMAKE_BOOL=	WITH_OPENEXR
 
 PNG_LIB_DEPENDS=	libpng.so:graphics/png
@@ -263,7 +263,8 @@ EXTRA_MODULES_LIB_DEPENDS=	libgflags.so:devel/gflags \
 				libglog.so:devel/glog \
 				libhdf5.so:science/hdf5
 EXTRA_MODULES_EXTRA_PATCHES+=	${FILESDIR}/extra-patch-modules_dnn__modern_CMakeLists.txt \
-				${FILESDIR}/extra-patch-modules_sfm_src__libmv__light_libmv_numeric_numeric.h
+				${FILESDIR}/extra-patch-modules_sfm_src__libmv__light_libmv_numeric_numeric.h \
+				${FILESDIR}/extra-patch-modules_stereo_src_descriptor.cpp
 
 OPENGL_DESC=		OpenGL (require QT or GTK2)
 OPENGL_CMAKE_BOOL=	WITH_OPENGL
@@ -326,6 +327,13 @@ CMAKE_ARGS+=	-DBUILD_opencv_${module}:BOOL=OFF
 
 .if !defined(OCV_JAVA)
 CMAKE_ARGS+=	-DBUILD_JAVA:BOOL=OFF
+.endif
+
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MQT4}
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
 .endif
 
 post-extract-EXTRA_MODULES-on:

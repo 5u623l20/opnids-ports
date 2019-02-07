@@ -15,13 +15,16 @@ LIB_DEPENDS=	libaudiofile.so:audio/libaudiofile \
 		libgcrypt.so:security/libgcrypt
 
 GNU_CONFIGURE=	yes
-USES=		gettext gmake libtool pkgconfig
+USES=		gettext gmake libtool pkgconfig perl5
 USE_GNOME=	glib20
+USE_PERL5=	build
 USE_LDCONFIG=	yes
 
 INSTALL_TARGET=	install-strip
 
-post-install:
+OPTIONS_DEFINE=	DOCS
+
+post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC} && ${INSTALL_DATA} AUTHORS ChangeLog README THANKS \
 	    doc/libspectrum.txt ${STAGEDIR}${DOCSDIR}

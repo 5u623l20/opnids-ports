@@ -3,11 +3,12 @@
 
 PORTNAME=	django-tables2
 DISTVERSION=	1.21.2
+PORTREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	freebsd_ports@k-worx.org
+MAINTAINER=	kai@FreeBSD.org
 COMMENT=	Table/data-grid framework for Django
 
 LICENSE=	BSD2CLAUSE

@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	gnubg
-PORTVERSION=	1.06.001
+PORTVERSION=	1.06.002
+PORTREVISION=	1
 CATEGORIES=	games
 MASTER_SITES=	http://files.gnubg.org/media/sources/
 DISTFILES=	gnubg-release-${PORTVERSION}-sources.tar.gz
@@ -12,7 +13,6 @@ COMMENT=	GNU Backgammon
 
 LICENSE=	GPLv3
 
-BUILD_DEPENDS=	bison:devel/bison
 RUN_DEPENDS=	sqlite3:databases/sqlite3
 LIB_DEPENDS=	libpng.so:graphics/png \
 		libgtkglext-x11-1.0.so:x11-toolkits/gtkglext \
@@ -21,6 +21,11 @@ LIB_DEPENDS=	libpng.so:graphics/png \
 		libcurl.so:ftp/curl \
 		libfontconfig.so:x11-fonts/fontconfig \
 		libfreetype.so:print/freetype2
+
+USES=		bison gmake libtool pathfix shebangfix python pkgconfig compiler:c++11-lang readline gnome gl
+USE_GNOME=	glib20 gtk20 cairo pangox-compat
+USE_XORG+=	xmu xt sm ice x11
+USE_GL+=	glu gl
 
 USE_HARDENING=	pie:off relro:off
 
@@ -31,10 +36,6 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 GNU_CONFIGURE=	yes
 INSTALLS_ICONS=	yes
 INSTALL_TARGET=	install-strip
-USES=		gmake libtool pathfix shebangfix python pkgconfig compiler:c++11-lang readline
-USE_GNOME=	glib20 gtk20 cairo pangox-compat
-USE_XORG+=	xmu xt sm ice x11
-USE_GL+=	glu gl
 
 OPTIONS_DEFINE=	NLS DOCS
 OPTIONS_SUB=	yes

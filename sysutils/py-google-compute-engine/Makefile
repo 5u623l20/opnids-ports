@@ -1,10 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	google-compute-engine
-DISTVERSION=	2.8.3
-PORTREVISION=	1
+DISTVERSION=	2.8.6
 CATEGORIES=	sysutils python
-MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	helen.koike@collabora.com
@@ -19,9 +17,16 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}boto>0:devel/py-boto@${PY_FLAVOR} \
 		google_oslogin_control:sysutils/google-compute-engine-oslogin \
 		sudo:security/sudo
 
-USES=		python
+USES=		python shebangfix
 USE_PYTHON=	autoplist concurrent distutils
+
 NO_ARCH=	yes
+SHEBANG_FILES=	scripts/set_multiqueue scripts/optimize_local_ssd
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	GoogleCloudPlatform
+GH_PROJECT=	compute-image-packages
+GH_TAGNAME=	20181011
 
 USE_RC_SUBR=	google_instance_setup \
 		google_accounts_daemon \

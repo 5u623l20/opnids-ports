@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	keybase
-PORTVERSION=	2.1.1
+PORTVERSION=	2.13.1
+PORTREVISION=	1
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
@@ -11,9 +12,10 @@ COMMENT=	Keybase.io client
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/../LICENSE
 
+USES=		go
+
 GO_PKGNAME=	github.com/keybase/client/go
 GO_TARGET=	-tags production ${GO_PKGNAME}/keybase
-USES=		go
 WRKSRC_SUBDIR=	go
 
 PLIST_FILES=	bin/keybase

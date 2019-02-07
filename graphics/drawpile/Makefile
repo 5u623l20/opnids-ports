@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	Drawpile
-DISTVERSION=	2.0.10
-PORTREVISION=	2
+DISTVERSION=	2.0.11
+PORTREVISION=	1
 CATEGORIES=	graphics python
 
 MAINTAINER=	yuri@FreeBSD.org
@@ -16,7 +16,7 @@ LIB_DEPENDS=	libgif.so:graphics/giflib \
 		libminiupnpc.so:net/miniupnpc \
 		libsodium.so:security/libsodium
 
-USES=		cmake:outsource desktop-file-utils kde:5 pkgconfig qt:5 shared-mime-info
+USES=		cmake desktop-file-utils kde:5 pkgconfig qt:5 shared-mime-info
 USE_GITHUB=	yes
 GH_ACCOUNT=	${PORTNAME:tl}
 USE_QT=		core gui multimedia network sql svg widgets buildtools_build linguisttools_build qmake_build

@@ -3,6 +3,7 @@
 
 PORTNAME=	calculix
 PORTVERSION=	2.14
+PORTREVISION=	2
 CATEGORIES=	cad
 MASTER_SITES=	http://www.dhondt.de/
 DISTFILES=	${DIST_SOURCES}
@@ -14,7 +15,9 @@ COMMENT=	Three-Dimensional Structural Finite Element Program
 
 LICENSE=	GPLv2
 
-BROKEN_FreeBSD_10=	Does not build with clang on FreeBSD 10, causes segfaults when built with gcc
+BROKEN=		checksum and size mismatch
+DEPRECATED=	Broken for more than 6 months
+EXPIRATION_DATE=	2019-03-05
 BROKEN_aarch64=		fails to link: shapeFunctions.c:(function attach_new): relocation R_AARCH64_CALL26 out of range
 
 RUN_DEPENDS=	ccx:cad/calculix-ccx

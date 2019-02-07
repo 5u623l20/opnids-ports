@@ -3,6 +3,7 @@
 
 PORTNAME=	pgespresso
 PORTVERSION=	1.2
+PORTREVISION=	1
 CATEGORIES=	databases
 
 MAINTAINER=	matthew@FreeBSD.org
@@ -27,6 +28,8 @@ PORTDOCS=	README.asciidoc
 
 INSTALL_TARGET=	install-strip
 MAKE_ARGS=	INSTALL="${INSTALL} -c"
+
+OPTIONS_DEFINE=	DOCS
 
 post-install:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}/

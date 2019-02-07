@@ -4,6 +4,7 @@
 PORTNAME=	jucipp
 DISTVERSIONPREFIX=	v
 DISTVERSION=	1.4.4
+PORTREVISION=	2
 CATEGORIES=	editors
 
 MAINTAINER=	info@babaei.net
@@ -17,7 +18,7 @@ LIB_DEPENDS=	libaspell.so:textproc/aspell \
 		libgit2.so:devel/libgit2 \
 		libclang.so.5:devel/llvm50
 
-USES=		cmake:outsource desktop-file-utils pkgconfig
+USES=		cmake compiler:c++14-lang desktop-file-utils pkgconfig
 USE_GITHUB=	yes
 GH_ACCOUNT=	cppit
 GH_TUPLE=	cppit:libclangmm:5a0195e:libclangmm/libclangmm \

@@ -3,7 +3,7 @@
 
 PORTNAME=	sdpara
 PORTVERSION=	7.3.1
-PORTREVISION=	4
+PORTREVISION=	6
 CATEGORIES=	math parallel
 MASTER_SITES=	SF/sdpa/sdpara
 DISTNAME=	${PORTNAME}.${PORTVERSION}.src.20100914
@@ -13,6 +13,10 @@ MAINTAINER=	ports@FreeBSD.org
 COMMENT=	SDPARA parallel version of SDPA (math/sdpa)
 
 LICENSE=	GPLv2 # (or later)
+
+BROKEN=		conflicting dependencies
+DEPRECATED=	Broken for more than 6 months
+EXPIRATION_DATE=	2019-03-05
 
 LIB_DEPENDS=	libblacs.so:math/blacs \
 		libscalapack.so:math/scalapack \

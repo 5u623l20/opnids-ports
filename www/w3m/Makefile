@@ -3,6 +3,7 @@
 
 PORTNAME=	w3m
 PORTVERSION=	0.5.3.20180520
+PORTREVISION=	1
 CATEGORIES+=	www ipv6
 
 MAINTAINER?=	nobutaka@FreeBSD.org
@@ -74,7 +75,7 @@ PKGMESSAGE=	${NONEXISTENT}
 
 post-patch:
 	@${REINPLACE_CMD} -e \
-		's|\`\(expr\) \(.*\) : \(.*\)`|`\1 \\( \2 : \3 \\)`|' \
+		's|`\(expr\) \(.*\) : \(.*\)`|`\1 \\( \2 : \3 \\)`|' \
 		-e 's|/usr/local|${LOCALBASE}|g' \
 		${WRKSRC}/configure
 	@${FIND} ${WRKSRC}/doc* -type f \! -name HISTORY \

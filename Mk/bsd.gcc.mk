@@ -150,9 +150,16 @@ CC:=			gcc${V}
 CXX:=			g++${V}
 CPP:=			cpp${V}
 _GCC_RUNTIME:=		${LOCALBASE}/lib/gcc${V}
+.   if ${PORTNAME} == gcc
+# We don't want the rpath stuff while building GCC itself
+# so we do not set the FLAGS as done in the else part.
+# When building a GCC, we want the target libraries to be used and not the
+# host GCC libraries.
+.   else
 CFLAGS+=		-Wl,-rpath=${_GCC_RUNTIME}
 CXXFLAGS+=		-Wl,-rpath=${_GCC_RUNTIME}
 LDFLAGS+=		-Wl,-rpath=${_GCC_RUNTIME} -L${_GCC_RUNTIME}
+.   endif
 .  else # Use GCC in base.
 CC:=			gcc
 CXX:=			g++
@@ -165,6 +172,10 @@ CPP:=			cpp
 . endif # ${_USE_GCC} == ${_GCCVERSION_${v}_V}
 .endfor
 .undef V
+
+# Now filter unsupported flags for CC and CXX.
+CFLAGS:=		${CFLAGS:N-mretpoline}
+CXXFLAGS:=		${CXXFLAGS:N-mretpoline}
 
 .if defined(_GCC_PORT_DEPENDS)
 BUILD_DEPENDS+=	${_GCC_PORT_DEPENDS}:lang/${_GCC_PORT}
@@ -197,7 +208,9 @@ test-gcc:
 .endfor
 	@echo Using GCC version ${_USE_GCC}
 .endif
-	@echo CC=${CC} - CXX=${CXX} - CPP=${CPP} - CFLAGS=\"${CFLAGS}\"
+	@echo CC=${CC} - CXX=${CXX} - CPP=${CPP}
+	@echo CFLAGS=\"${CFLAGS}\"
+	@echo CXXFLAGS=\"${CXXFLAGS}\"
 	@echo LDFLAGS=\"${LDFLAGS}\"
 	@echo "BUILD_DEPENDS=${BUILD_DEPENDS}"
 	@echo "RUN_DEPENDS=${RUN_DEPENDS}"

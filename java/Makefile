@@ -11,9 +11,7 @@
     SUBDIR += bootstrap-openjdk8
     SUBDIR += bouncycastle
     SUBDIR += bouncycastle15
-    SUBDIR += cacao
     SUBDIR += castor
-    SUBDIR += classpath
     SUBDIR += cos
     SUBDIR += cryptix-jce
     SUBDIR += dbvis
@@ -53,7 +51,6 @@
     SUBDIR += jakarta-commons-primitives
     SUBDIR += jakarta-oro
     SUBDIR += jakarta-regexp
-    SUBDIR += jamvm
     SUBDIR += jasmin
     SUBDIR += jattach
     SUBDIR += java-checkstyle
@@ -71,13 +68,13 @@
     SUBDIR += jcommon
     SUBDIR += jd-gui
     SUBDIR += jdbcpool
+    SUBDIR += jdk10-doc
     SUBDIR += jdk8-doc
     SUBDIR += jdk9-doc
     SUBDIR += jdom
     SUBDIR += jflex
     SUBDIR += jfreechart
     SUBDIR += jgraph
-    SUBDIR += jgrapht
     SUBDIR += jgraphx
     SUBDIR += jikes
     SUBDIR += jlex
@@ -103,7 +100,6 @@
     SUBDIR += mmake
     SUBDIR += mx4j
     SUBDIR += netbeans
-    SUBDIR += netbeans-devel
     SUBDIR += netcomponents
     SUBDIR += netrexx
     SUBDIR += netty
@@ -129,6 +125,10 @@
     SUBDIR += visualvm
     SUBDIR += wildfly10
     SUBDIR += wildfly11
+    SUBDIR += wildfly12
+    SUBDIR += wildfly13
+    SUBDIR += wildfly14
+    SUBDIR += wildfly15
     SUBDIR += wildfly90
     SUBDIR += xdoclet
 

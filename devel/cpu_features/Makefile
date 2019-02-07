@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	cpu_features
-PORTVERSION=	0.1.0
+PORTVERSION=	0.2.0
 DISTVERSIONPREFIX=	v
 CATEGORIES=	devel
 
@@ -10,7 +10,7 @@ COMMENT=	Cross platform C99 library to get cpu features at runtime
 
 LICENSE=	APACHE20
 
-USES=	cmake
+USES=	cmake:insource
 USE_GITHUB=	yes
 GH_ACCOUNT=	google
 

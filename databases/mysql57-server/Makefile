@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME?=	mysql
-PORTVERSION=	5.7.22
-PORTREVISION?=	2
+PORTVERSION=	5.7.25
+PORTREVISION?=	0
 CATEGORIES=	databases ipv6
 MASTER_SITES=	MYSQL/MySQL-5.7
 PKGNAMESUFFIX?=	57-server
@@ -19,7 +19,7 @@ WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 USE_HARDENING=	relro:off
 
 SLAVEDIRS=	databases/mysql57-client
-USES=		bison:build cmake:outsource,noninja compiler:c11 compiler:c++11-lib \
+USES=		bison:build cmake:noninja compiler:c11 compiler:c++11-lib \
 		cpe libedit localbase perl5 shebangfix ssl
 
 USE_PERL5=	run
@@ -41,7 +41,7 @@ CMAKE_ARGS+=	-DINSTALL_LAYOUT=FREEBSD \
 		-DINSTALL_DOCDIR="share/doc/mysql" \
 		-DINSTALL_DOCREADMEDIR="share/doc/mysql" \
 		-DINSTALL_INCLUDEDIR="include/mysql" \
-		-DINSTALL_INFODIR="info" \
+		-DINSTALL_INFODIR="${INFO_PATH}" \
 		-DINSTALL_LIBDIR="lib/mysql" \
 		-DINSTALL_MANDIR="man" \
 		-DINSTALL_MYSQLDATADIR="${MY_DBDIR}" \
@@ -98,6 +98,7 @@ SUB_FILES=	my.cnf.sample
 USERS=		mysql
 GROUPS=		mysql
 
+USE_CXXSTD=	c++11
 USE_LDCONFIG+=	${PREFIX}/lib/mysql/plugin
 
 MMAN1=		my_print_defaults.1 myisam_ftdump.1 myisamchk.1 myisamlog.1 myisampack.1 \

@@ -3,6 +3,7 @@
 
 PORTNAME=	libdvdread
 PORTVERSION=	6.0.0
+PORTREVISION=	1
 CATEGORIES=	multimedia
 MASTER_SITES=	http://download.videolan.org/pub/videolan/libdvdread/${PORTVERSION}/ \
 		http://dvdnav.mplayerhq.hu/releases/ \
@@ -21,7 +22,7 @@ USE_LDCONFIG=	yes
 
 PORTDOCS=	AUTHORS COPYING ChangeLog NEWS README TODO
 
-OPTIONS_DEFINE=	DVDCSS
+OPTIONS_DEFINE=	DVDCSS DOCS
 .if !defined(PACKAGE_BUILDING)
 OPTIONS_DEFAULT=	DVDCSS
 .endif

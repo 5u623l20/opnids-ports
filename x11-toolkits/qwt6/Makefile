@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	qwt
-PORTVERSION=	6.1.3
-PORTREVISION=	3
+PORTVERSION=	6.1.4
 CATEGORIES=	x11-toolkits
 MASTER_SITES=	SF
 PKGNAMESUFFIX=	6-${FLAVOR}
@@ -10,10 +9,10 @@ PKGNAMESUFFIX=	6-${FLAVOR}
 MAINTAINER=	lbartoletti@tuxfamily.org
 COMMENT=	Qt Widgets for Technical Applications
 
-FLAVORS=	qt4 qt5
+FLAVORS=	qt5 qt4
 FLAVOR?=	${FLAVORS:[1]}
 
-USES=		gmake qmake tar:bzip2
+USES=		gl gmake qmake tar:bzip2
 USE_GL=		gl
 USE_LDCONFIG=	${PREFIX}/${QT_LIBDIR_REL}
 
@@ -25,11 +24,14 @@ PLIST_SUB=	SHLIB_VER=${PORTVERSION} \
 QMAKE_ARGS+=	PLUGINDIR=${PREFIX}/${QT_PLUGINDIR_REL}
 
 .if ${FLAVOR} == qt4
+DEPRECATED=	Qt4 has been EOL since december 2015
+EXPIRATION_DATE=2019-03-15
 USES+=		qt:4
 USE_QT=		corelib designer gui opengl svg xml moc_build rcc_build script
 .else
-USES+=		qt:5
+USES+=		compiler:c++11-lang qt:5
 USE_QT=		buildtools_build widgets gui core designer gui opengl svg xml printsupport concurrent
+PLIST_FILES=	${PREFIX}/${QT_PLUGINDIR_REL}/designer/libqwt6_designer_plugin.so
 .endif
 
 OPTIONS_DEFINE=	DOCS

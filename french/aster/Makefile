@@ -3,8 +3,7 @@
 
 PORTNAME=	aster
 DISTVERSION=	${ASTER_DISTVERSION}
-PORTREVISION=	3
-CATEGORIES=	french cad
+PORTREVISION=	1
 CATEGORIES=	french cad
 
 MAINTAINER=	thierry@FreeBSD.org
@@ -12,7 +11,11 @@ COMMENT=	Code_Aster finite element method solver
 
 LICENSE=	GPLv2
 
-BROKEN_FreeBSD_12=	does not build (sed: ${STAGEDIR}${inst_dir}/${VE}/aster.conf: No such file or directory)
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
+
+BROKEN_FreeBSD_12=	does not build (conflicting types for 'WritePermutation' ibc/renum/onmetl.c vs /usr/local/include/programs/proto.h)
+BROKEN_FreeBSD_13=	does not build (conflicting types for 'WritePermutation' ibc/renum/onmetl.c vs /usr/local/include/programs/proto.h)
 
 #-----------------------------------------------------------------------
 # You may define these options:
@@ -42,7 +45,7 @@ BUILD_DEPENDS+=	astk-serveur>0:cad/astk-serveur	\
 		bash:shells/bash				\
 		${PYNUMPY}
 LIB_DEPENDS+=	libhdf5-18.so:science/hdf5-18			\
-		libmetis.so:math/metis			\
+		libmetis.so:math/metis				\
 		libomp.so:devel/openmp				\
 		libmed.so:french/med
 #		libAsterInterface.so:science/mfront
@@ -51,7 +54,7 @@ RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}gnuplot>0:math/py-gnuplot@${PY_FLAVOR} \
 		${SHELL_INSTALL_ASTER}:shells/${SHIADEP}	\
 		astk-serveur>0:cad/astk-serveur
 
-USES=		bison fortran gettext python:2.7 qt:4 tk
+USES=		bison fortran gettext python:2.7 qt:5 tk
 USE_BINUTILS=	yes
 USE_QT=		linguisttools_build
 

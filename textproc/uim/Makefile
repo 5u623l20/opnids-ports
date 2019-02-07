@@ -3,6 +3,7 @@
 
 PORTNAME=	uim
 PORTVERSION=	1.8.8
+PORTREVISION?=	0
 CATEGORIES?=	textproc
 MASTER_SITES=	https://github.com/uim/uim/releases/download/${PORTVERSION}/
 .if !defined(UIM_SLAVE) && defined(WITHOUT_X11)
@@ -15,8 +16,6 @@ COMMENT?=	Input method library
 LICENSE=	BSD3CLAUSE GPLv2+ GPLv3+ LGPL21+ PD
 LICENSE_COMB=	multi
 LICENSE_FILE=	${WRKSRC}/COPYING
-
-BROKEN_aarch64=	Fails to build: The collector has not been ported to this machine/OS combination
 
 USES+=		gettext gmake iconv libedit libtool pathfix pkgconfig perl5 sqlite tar:bzip2
 USE_LDCONFIG=	yes

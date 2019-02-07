@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xterm
-PORTVERSION=	333
+PORTVERSION=	343
 CATEGORIES=	x11
 MASTER_SITES=	ftp://ftp.invisible-island.net/xterm/:src1 \
 		https://invisible-mirror.net/archives/xterm/:src1 \
@@ -14,17 +14,20 @@ MAINTAINER=	ehaupt@FreeBSD.org
 COMMENT=	Terminal emulator for the X Window System
 
 LICENSE=	MIT
-
-CONFLICTS=	x11iraf-[0-9]*
-
-USES=		cpe ncurses tar:tgz
-CPE_VENDOR=	invisible-island
-USE_XORG=	xft xmu xt x11 xpm ice
-GNU_CONFIGURE=	yes
+LICENSE_FILE=	${WRKSRC}/COPYING
 
 USE_HARDENING=	safestack
 
+USES=		cpe ncurses tar:tgz
+USE_XORG=	xft xmu xt x11 xpm ice
+
+GNU_CONFIGURE=	yes
+
+CPE_VENDOR=	invisible-island
+
 CONFIGURE_ARGS+=	--with-utempter --enable-narrowproto
+
+CONFLICTS=	x11iraf-[0-9]*
 
 CPPFLAGS+=	-I${LOCALBASE}/include
 LIBS+=		-L${LOCALBASE}/lib
@@ -75,7 +78,7 @@ NEXTAW_CONFIGURE_WITH=		neXtaw
 NEXTAW_LIB_DEPENDS=		libneXtaw.so:x11-toolkits/neXtaw
 TOOLBAR_CONFIGURE_ENABLE=	toolbar
 WCHAR_LIB_DEPENDS=		libfreetype.so:print/freetype2
-XINERAMA_USE=			XORG=xinerama,xineramaproto
+XINERAMA_USE=			XORG=xinerama,xorgproto
 XINERAMA_CONFIGURE_OFF=		--without-xinerama
 
 LIB_DEPENDS+=	libfontconfig.so:x11-fonts/fontconfig

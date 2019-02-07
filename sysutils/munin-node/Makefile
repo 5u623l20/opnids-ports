@@ -3,7 +3,7 @@
 
 PORTNAME=	munin
 PORTVERSION=	${MUNIN_VERSION}
-PORTREVISION=	0
+PORTREVISION=	3
 CATEGORIES=	sysutils perl5
 MASTER_SITES=	${MUNIN_SITES}
 PKGNAMESUFFIX=	-node
@@ -58,6 +58,8 @@ JAVA_RUN=	yes
 
 SUB_FILES=	pkg-message plugins.conf
 USE_RC_SUBR=	munin-asyncd munin-node munin-sched
+
+PORTSCOUT=	ignore:1
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g' \

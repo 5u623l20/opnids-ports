@@ -3,7 +3,7 @@
 
 PORTNAME=	mumble
 PORTVERSION=	1.2.19
-PORTREVISION=	10
+PORTREVISION=	14
 CATEGORIES=	audio
 
 MAINTAINER=	feld@FreeBSD.org
@@ -11,6 +11,9 @@ COMMENT=	Voice chat software primarily intended for use while gaming
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
+
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
 
 LIB_DEPENDS+=	libspeex.so:audio/speex \
 		libspeexdsp.so:audio/speexdsp \
@@ -21,7 +24,8 @@ LIB_DEPENDS+=	libspeex.so:audio/speex \
 
 PLIST_SUB+=	PORTVERSION="${PORTVERSION}"
 
-USES=		compiler cpe desktop-file-utils gmake pkgconfig qmake qt:4 ssl
+USES=		compiler:c++11-lang cpe desktop-file-utils gmake pkgconfig qmake qt:4 ssl
+USE_CXXSTD=	c++11
 USE_GITHUB=	yes
 GH_ACCOUNT=	mumble-voip
 GH_PROJECT=	mumble celt-0.7.0:mumble_celt_0_7 celt-0.11.0:mumble_celt_0_11
@@ -38,6 +42,8 @@ MAKE_JOBS_UNSAFE=yes
 
 CONFIG=		no-server no-alsa no-speechd no-bundled-speex no-bundled-opus no-update \
 		bundled-celt no-g15 no-pulseaudio no-xevie no-embed-qt-translations
+
+EXTRA_PATCHES=	${FILESDIR}/extrapatch-fix-build-boost-1.66:-p1
 
 QMAKE_ARGS=	"CONFIG+=${CONFIG}"
 
@@ -58,11 +64,9 @@ PORTAUDIO_LIB_DEPENDS=	libportaudio.so:audio/portaudio
 .include <bsd.port.pre.mk>
 
 # PCH is broken on GCC
-.if ${COMPILER_TYPE} == gcc
+.if ${CHOSEN_COMPILER_TYPE} == gcc
 CONFIG+=	no-pch
 .endif
-
-EXTRA_PATCHES=	${FILESDIR}/extrapatch-fix-build-boost-1.66:-p1
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|-ldl||' ${WRKSRC}/overlay_gl/overlay_gl.pro

@@ -8,7 +8,9 @@
     SUBDIR += bip
     SUBDIR += bitchx
     SUBDIR += bitlbee
+    SUBDIR += bitlbee-discord
     SUBDIR += bitlbee-facebook
+    SUBDIR += bitlbee-steam
     SUBDIR += bnc
     SUBDIR += bopm
     SUBDIR += cgiirc
@@ -45,7 +47,6 @@
     SUBDIR += ircd-ru
     SUBDIR += ircproxy
     SUBDIR += ircservices
-    SUBDIR += iroffer
     SUBDIR += iroffer-dinoex
     SUBDIR += iroffer-lamm
     SUBDIR += irssi
@@ -59,14 +60,12 @@
     SUBDIR += keitairc2
     SUBDIR += konversation
     SUBDIR += kvirc
-    SUBDIR += kvirc-qt4
     SUBDIR += libircclient
     SUBDIR += lostirc
     SUBDIR += miau
     SUBDIR += minbif
     SUBDIR += muh
     SUBDIR += nethirc
-    SUBDIR += netwalker-ircc
     SUBDIR += ngircd
     SUBDIR += ninja
     SUBDIR += onis
@@ -122,7 +121,9 @@
     SUBDIR += undernet-ircu
     SUBDIR += unreal
     SUBDIR += weechat
+    SUBDIR += weechat-otr
     SUBDIR += xaric
     SUBDIR += znc
+    SUBDIR += znc-push
 
 .include <bsd.port.subdir.mk>

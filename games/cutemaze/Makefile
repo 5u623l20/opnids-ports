@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	cutemaze
-PORTVERSION=	1.2.2
+PORTVERSION=	1.2.4
+PORTREVISION=	1
 CATEGORIES=	games
 MASTER_SITES=	http://gottcode.org/${PORTNAME}/
 DISTNAME=	${PORTNAME}-${DISTVERSION}-src
@@ -18,7 +19,7 @@ USE_GL=		gl
 USE_QT=		core gui svg imageformats_run widgets \
 		linguisttools_build buildtools_build
 
-PORTDOCS=	ChangeLog NEWS README
+PORTDOCS=	ChangeLog README
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
 
 OPTIONS_DEFINE=	DOCS NLS

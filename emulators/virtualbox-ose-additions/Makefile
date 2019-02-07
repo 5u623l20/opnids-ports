@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	virtualbox-ose
-PORTVERSION=	5.2.16
+PORTVERSION=	5.2.26
 CATEGORIES=	emulators
-MASTER_SITES=	http://download.virtualbox.org/virtualbox/${PORTVERSION}/
+MASTER_SITES=	https://download.virtualbox.org/virtualbox/${PORTVERSION}/
 PKGNAMESUFFIX?=	-additions
 DISTNAME=	VirtualBox-${PORTVERSION}
 
@@ -76,7 +76,7 @@ VBOX_SBINS=	VBoxControl \
 BUILD_WRKSRC=	${VBOX_BIN}/src
 
 KMK_BUILDTYPE=	release
-KMK_CONFIG=	VBOX_LIBPATH_X11=${LOCALBASE}
+KMK_CONFIG=	VBOX_LIBPATH_X11=${LOCALBASE} VBOX_FREEBSD_SRC=${SRC_BASE}/sys
 KMK_FLAGS=
 
 .if ${PORT_OPTIONS:MDEBUG}
@@ -101,7 +101,7 @@ VBOX_LIBS=	VBoxEGL.so \
 .if ${PORT_OPTIONS:MX11}
 BUILD_DEPENDS+=	${LOCALBASE}/libdata/pkgconfig/xorg-server.pc:x11-servers/xorg-server
 RUN_DEPENDS+=	xrandr:x11/xrandr
-USE_XORG+=	inputproto x11 xcursor xext xmu xorg-server xrandr xt
+USE_XORG+=	xorgproto x11 xcursor xext xmu xorg-server xrandr xt
 USES+=		pkgconfig
 VBOX_WITH_X11=	1
 XORG_DRV_ABI=	pkgconf --modversion xorg-server | \

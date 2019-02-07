@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	node
-PORTVERSION=	10.6.0
+PORTVERSION=	11.8.0
 DISTVERSIONPREFIX=	v
 CATEGORIES=	www
 MASTER_SITES=	http://nodejs.org/dist/v${PORTVERSION}/
@@ -13,20 +13,22 @@ LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BROKEN_powerpc64=	fails to build: KeyError: 'action'
+BROKEN_SSL=		openssl libressl libressl-devel
+BROKEN_SSL_REASON=	Node.js 11.x requires OpenSSL 1.1.x or the BUNDLED_SSL option enabled
 ONLY_FOR_ARCHS=		aarch64 amd64 armv6 armv7 i386 powerpc64
-
 
 LLVM_OBJDUMP_UNSAFE=	yes
 
 OPTIONS_DEFINE=		BUNDLED_SSL DOCS NLS DTRACE
-OPTIONS_DEFAULT=	BUNDLED_SSL DTRACE
+OPTIONS_DEFAULT=	DTRACE
+OPTIONS_DEFAULT_FreeBSD_11=	BUNDLED_SSL
+OPTIONS_DEFAULT+=	${OPTIONS_DEFAULT_${OPSYS}_${OSREL:R}}
 OPTIONS_SUB=		yes
 
 .if !exists(/usr/sbin/dtrace)
 OPTIONS_EXCLUDE+=	DTRACE
 .endif
 
-OPTIONS_EXCLUDE_FreeBSD_10=	DTRACE
 OPTIONS_EXCLUDE_aarch64=	DTRACE
 # dt_modtext:/usr/src/cddl/contrib/opensolaris/lib/libdtrace/common/dt_link.c(820): arm not implemented
 OPTIONS_EXCLUDE_armv6=		DTRACE
@@ -47,12 +49,13 @@ USES=		compiler:c++11-lib gmake python:2.7,build pkgconfig \
 
 HAS_CONFIGURE=	yes
 
-CONFLICTS_INSTALL=	node[4568]-[0-9]*
+CONFLICTS_INSTALL=	node[68]-[0-9]* node10-[0-9]*
 
 CONFIGURE_ARGS=	--prefix=${PREFIX_RELDEST} \
 		--without-npm \
 		--shared-cares \
 		--shared-libuv \
+		--shared-nghttp2 \
 		--shared-zlib
 
 SHEBANG_FILES=	tools/specialize_node_d.py tools/genv8constants.py
@@ -62,20 +65,17 @@ REINPLACE_ARGS=	-i ''
 MAKE_ENV+=	CC.host=${CC} CXX.host=${CXX} LINK.host=${CXX} LINK.target=${CXX}
 
 LIB_DEPENDS+=	libcares.so:dns/c-ares\
-		libuv.so:devel/libuv
+		libuv.so:devel/libuv \
+		libnghttp2.so:www/libnghttp2
 
 .include <bsd.port.options.mk>
 
-.if empty(PORT_OPTIONS:MBUNDLED_SSL)
-
-.if ${OPSYS} == FreeBSD && ${SSL_DEFAULT} != openssl-devel
-IGNORE=		node.js requires openssl 1.1.0, add DEFAULT_VERSIONS+=ssl=openssl-devel to /etc/make.conf or enable BUNDLED_SSL option
-.endif
-
-.if !empty(SSL_DEFAULT:Mlibressl*) || ( defined(LIBRESSL_IS_OPENSSL) && empty(SSL_DEFAULT:Mopenssl*) )
+.if empty(PORT_OPTIONS:MBUNDLED_SSL) && defined(LIBRESSL_IS_OPENSSL) && empty(SSL_DEFAULT:Mopenssl*)
 IGNORE=		cannot build node.js with LibreSSL. You must enable BUNDLED_SSL
 .endif
 
+.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1200085
+BROKEN_SSL+=	base
 .endif
 
 .include <bsd.port.pre.mk>
@@ -84,7 +84,7 @@ IGNORE=		cannot build node.js with LibreSSL. You must enable BUNDLED_SSL
 CONFIGURE_ARGS+=--openssl-no-asm
 .endif
 
-.if ${COMPILER_TYPE} == gcc
+.if ${CHOSEN_COMPILER_TYPE} == gcc
 # GCC does not expose std::snprintf() without this define
 CXXFLAGS+=	-D_GLIBCXX_USE_C99
 .endif

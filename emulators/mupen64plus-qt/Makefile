@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	mupen64plus-qt
-DISTVERSION=	1.11
+DISTVERSION=	1.12
+PORTREVISION=	1
 CATEGORIES=	emulators
 
 MAINTAINER=	maintainer@hasting.email

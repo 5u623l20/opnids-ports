@@ -2,13 +2,16 @@
 
 PORTNAME=	oyranos
 PORTVERSION=	0.9.6
-PORTREVISION=	5
+PORTREVISION=	7
 CATEGORIES=	graphics
 
 MAINTAINER=	bsam@FreeBSD.org
 COMMENT=	Colour Management System (CMS)
 
 LICENSE=	BSD3CLAUSE
+
+DEPRECATED=		Qt4 has been EOL since december 2015
+EXPIRATION_DATE=	2019-03-15
 
 RUN_DEPENDS=	${LOCALBASE}/share/color/icc/OpenICC/sRGB.icc:graphics/icc-profiles-openicc \
 		${LOCALBASE}/share/color/icc/basICColor/ISOcoated_v2_300_bas.ICC:graphics/icc-profiles-basiccolor \
@@ -40,7 +43,8 @@ CMAKE_ARGS+=	-DXDG_CONFIG_DIR=${PREFIX}/etc/xdg
 LDFLAGS+=	-L${LOCALBASE}/lib ${ICONV_LIB}
 MAKE_JOBS_UNSAFE=yes
 
-OPTIONS_DEFINE=	DOXYGEN
+OPTIONS_DEFINE=	DOXYGEN DOCS
+DOXYGEN_IMPLIES=	DOCS
 DOXYGEN_BUILD_DEPENDS=	${LOCALBASE}/bin/doxygen:devel/doxygen
 
 PORTDOCS=	*

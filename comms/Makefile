@@ -8,6 +8,7 @@
     SUBDIR += aldo
     SUBDIR += amtterm
     SUBDIR += anyremote
+    SUBDIR += apitran
     SUBDIR += aprsd
     SUBDIR += atslog
     SUBDIR += bfhist
@@ -38,7 +39,6 @@
     SUBDIR += ebook2cwgui
     SUBDIR += echolinux
     SUBDIR += efax
-    SUBDIR += efax-gtk
     SUBDIR += ems-flasher
     SUBDIR += fl_moxgen
     SUBDIR += flcluster
@@ -48,10 +48,8 @@
     SUBDIR += flwrap
     SUBDIR += freedv
     SUBDIR += gammu
-    SUBDIR += ge-x2212
     SUBDIR += geoid
     SUBDIR += gkermit
-    SUBDIR += gmfsk
     SUBDIR += gnocky
     SUBDIR += gnokii
     SUBDIR += gnuradio
@@ -59,7 +57,6 @@
     SUBDIR += gqrx
     SUBDIR += gr-osmosdr
     SUBDIR += grig
-    SUBDIR += gscmxx
     SUBDIR += gsmlib
     SUBDIR += gstreamer1-plugins-spandsp
     SUBDIR += gtkmmorse
@@ -67,7 +64,6 @@
     SUBDIR += hamfax
     SUBDIR += hamlib
     SUBDIR += hcidump
-    SUBDIR += hf
     SUBDIR += hidapi
     SUBDIR += hylafax
     SUBDIR += ibp
@@ -77,8 +73,7 @@
     SUBDIR += kb
     SUBDIR += kermit
     SUBDIR += klog
-    SUBDIR += kremotecontrol-kde4
-    SUBDIR += kvasd
+    SUBDIR += libbtbb
     SUBDIR += libconcord
     SUBDIR += libfap
     SUBDIR += libfec
@@ -134,7 +129,9 @@
     SUBDIR += picocom
     SUBDIR += pr
     SUBDIR += predict
+    SUBDIR += py-adafruit-ampy
     SUBDIR += py-bulksms
+    SUBDIR += py-esptool
     SUBDIR += py-gammu
     SUBDIR += py-hidapi
     SUBDIR += py-libconcord
@@ -142,6 +139,7 @@
     SUBDIR += py-lirc
     SUBDIR += py-qt5-serialport
     SUBDIR += py-serial
+    SUBDIR += py-xmodem
     SUBDIR += pyla
     SUBDIR += qico
     SUBDIR += qpage
@@ -160,12 +158,14 @@
     SUBDIR += rubygem-serialport
     SUBDIR += rxtx
     SUBDIR += scmxx
+    SUBDIR += scrcpy
     SUBDIR += sdr-wspr
     SUBDIR += ser2net
     SUBDIR += serialoverip
     SUBDIR += seyon
     SUBDIR += sms_client
     SUBDIR += smstools3
+    SUBDIR += snap7
     SUBDIR += spandsp
     SUBDIR += splat
     SUBDIR += sredird
@@ -185,16 +185,14 @@
     SUBDIR += twpsk
     SUBDIR += uarduno
     SUBDIR += uartlirc
+    SUBDIR += ubertooth
     SUBDIR += uhd
     SUBDIR += uird
     SUBDIR += unixcw
     SUBDIR += usbmuxd
-    SUBDIR += usrp
     SUBDIR += viewfax
     SUBDIR += vrflash
-    SUBDIR += wsjt
     SUBDIR += wsjtx
-    SUBDIR += wspr
     SUBDIR += wwl
     SUBDIR += wy60
     SUBDIR += xastir
@@ -204,7 +202,6 @@
     SUBDIR += xmorse
     SUBDIR += xnec2c
     SUBDIR += xnecview
-    SUBDIR += xwota
     SUBDIR += yaac
     SUBDIR += yagiuda
     SUBDIR += yaps

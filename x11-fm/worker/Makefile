@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	worker
-PORTVERSION=	3.15.1
+PORTVERSION=	3.15.3
 CATEGORIES=	x11-fm
 MASTER_SITES=	http://www.boomerangsworld.de/cms/worker/downloads/
 
@@ -22,7 +22,7 @@ SHEBANG_FILES=	${WRKSRC}/scripts/*.sh \
 		${WRKSRC}/scripts/find_file_by_chksum.py
 
 OPTIONS_DEFINE=	AVFS HAL INOTIFY LUA XFT
-OPTIONS_DEFAULT=	AVFS INOTIFY
+OPTIONS_DEFAULT=	AVFS INOTIFY XFT
 
 OPTIONS_EXCLUDE_DragonFly=	AVFS
 
@@ -45,5 +45,9 @@ LUA_USES=	lua:51
 
 XFT_CONFIGURE_OFF=	--disable-xft
 XFT_USE=	xorg=xft
+
+.if exists(/usr/lib/libstdc++.so)
+CXXFLAGS+=	-Wno-error=narrowing
+.endif
 
 .include <bsd.port.mk>

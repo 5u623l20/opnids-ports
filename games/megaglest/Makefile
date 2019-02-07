@@ -3,7 +3,7 @@
 
 PORTNAME=	megaglest
 PORTVERSION=	3.13.0
-PORTREVISION=	5
+PORTREVISION=	7
 CATEGORIES=	games
 
 MAINTAINER=	monwarez@mailoo.org
@@ -31,7 +31,7 @@ SUB_FILES=	pkg-message
 
 USE_HARDENING=	pie:off
 
-USES=		cmake compiler:c++11-lib display:build dos2unix jpeg lua \
+USES=		cmake:insource compiler:c++11-lib display:build dos2unix jpeg lua \
 		openal:al,alut pkgconfig
 USE_GL=		glew gl glu
 USE_SDL=	sdl2

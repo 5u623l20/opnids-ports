@@ -2,6 +2,7 @@
 
 PORTNAME=	seabios
 PORTVERSION=	1.11.0
+PORTREVISION=	2
 CATEGORIES=	misc
 MASTER_SITES=	http://code.coreboot.org/p/seabios/downloads/get/
 
@@ -18,6 +19,8 @@ USES=	gmake python:build
 MAKE_ARGS=	HOSTCC="${CC}" LD="${LD}" PYTHON="${PYTHON_CMD}"
 USE_GCC=	yes
 USE_BINUTILS=	yes
+
+LLVM_OBJDUMP_UNSAFE=	yes
 
 PLIST_FILES=	${DATADIR}/bios.bin
 

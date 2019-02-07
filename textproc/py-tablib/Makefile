@@ -2,11 +2,12 @@
 
 PORTNAME=	tablib
 DISTVERSION=	0.12.1
+PORTREVISION=	1
 CATEGORIES=	textproc python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
-MAINTAINER=	freebsd_ports@k-worx.org
+MAINTAINER=	kai@FreeBSD.org
 COMMENT=	Format agnostic tabular data library (XLS, JSON, YAML, CSV)
 
 LICENSE=	MIT

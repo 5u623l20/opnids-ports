@@ -3,7 +3,7 @@
 
 PORTNAME=	opal
 PORTVERSION=	3.10.10
-PORTREVISION=	18
+PORTREVISION=	20
 CATEGORIES=	net
 MASTER_SITES=	GNOME
 
@@ -16,7 +16,7 @@ LIB_DEPENDS=	libpt.so:devel/ptlib
 
 USE_HARDENING=	pie:off relro:off
 
-USES=		gmake pathfix pkgconfig tar:xz
+USES=		compiler:c11 gmake pathfix pkgconfig tar:xz
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 

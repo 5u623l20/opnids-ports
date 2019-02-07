@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	binutils
-PORTVERSION=	2.30
-PORTREVISION=	3
+PORTVERSION=	2.31.1
+PORTREVISION=	2
 PORTEPOCH?=	1
 CATEGORIES?=	devel
 MASTER_SITES=	SOURCEWARE/binutils/releases
@@ -14,8 +14,7 @@ COMMENT?=	GNU binary tools
 LICENSE=	GPLv3 LGPL3
 LICENSE_COMB=	multi
 
-EXTRA_PATCHES=	${FILESDIR}/fix-aarch64.diff:-p1
-
+EXTRA_PATCHES=	${FILESDIR}/binutils-do-not-provide-shared-section-symbols.patch:-p1
 .if !defined(CROSS_TOOLCHAIN)
 BUILD_DEPENDS=	${LOCALBASE}/lib/libgmp.so:math/gmp \
 		${LOCALBASE}/lib/libmpfr.so:math/mpfr
@@ -46,7 +45,7 @@ BUTARGET?=	${PKGNAMEPREFIX}unknown-${OPSYS:tl}${OSREL}
 .endif
 PLIST_SUB=	BUTARGET=${BUTARGET}
 OPTIONS_EXCLUDE=	NLS
-INFO_PATH=	${PKGNAMEPREFIX:S/-$//}/info
+INFO_PATH=	${PKGNAMEPREFIX:S/-$//}/share/info
 CONFIGURE_ARGS+=	--disable-shared \
 			--target=${BUTARGET}
 .else
@@ -63,7 +62,8 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 CONFIGURE_ARGS+=	--with-system-zlib \
 			--with-gmp=${LOCALBASE} \
 			--with-mpfr=${LOCALBASE} \
-			--enable-targets=all
+			--enable-targets=all \
+			--enable-threads=yes
 INFO=		as \
 		binutils \
 		gprof \
@@ -90,8 +90,9 @@ STATIC_LDFLAGS+=	-all-static
 .include <bsd.port.pre.mk>
 
 # Actual earliest version may differ slightly
-.if ${ARCH} != i386 && ${ARCH} != mips && ${ARCH} != mips64 && ${ARCH} != powerpc && ${ARCH} != powerpc64 && ${ARCH} != powerpcspe && !defined(PKGNAMEPREFIX) && (${COMPILER_TYPE} == clang && ${COMPILER_VERSION} >= 34 || ${COMPILER_TYPE} == gcc)
+.if ${ARCH} != mips && ${ARCH} != mips64 && ${ARCH} != powerpc && ${ARCH} != powerpc64 && ${ARCH} != powerpcspe && !defined(PKGNAMEPREFIX)
 CONFIGURE_ARGS+=	--enable-gold --enable-plugins
+CXXFLAGS+=	-Wno-c++11-narrowing
 PLIST_SUB+=	GOLD=""
 .else
 PLIST_SUB+=	GOLD="@comment "
@@ -119,7 +120,8 @@ post-install:
 .if ${PKGNAMEPREFIX:S/-$//} != ${BUTARGET}
 	${RM} -r ${STAGEDIR}${PREFIX}/${PKGNAMEPREFIX:S/-$//}
 .endif
-	@if [ -d ${STAGEDIR}${PREFIX}/${INFO_PATH} ] ; then rm -rf ${STAGEDIR}${PREFIX}/${INFO_PATH}; fi
+	${RM} ${STAGEDIR}${PREFIX}/${BUTARGET}/lib/ldscripts/i386bsd.*
+	@if [ -d ${STAGEDIR}${PREFIX}/${INFO_PATH:H} ] ; then rm -rf ${STAGEDIR}${PREFIX}/${INFO_PATH:H}; fi
 	${LN} -fs ../../bin/${BUTARGET}-size ${STAGEDIR}${PREFIX}/${BUTARGET}/bin/size
 .if defined(CROSS_TOOLCHAIN)
 	${MV} ${STAGEDIR}/usr/bin/as ${STAGEDIR}/usr/bin/${BUTARGET}-as
@@ -144,11 +146,15 @@ post-install:
 	${MV} ${STAGEDIR}/${MANDIR}1/objdump.1 ${STAGEDIR}/${MANDIR}1/${BUTARGET}-objdump.1
 	${GZIP_CMD} ${STAGEDIR}/${MANDIR}1/${BUTARGET}-objdump.1
 	${LN} -fs ${BUTARGET}-objdump.1.gz ${STAGEDIR}/${MANDIR}1/objdump.1.gz
+	@${RM} -r ${STAGEDIR}${PREFIX}/include
+	@${RM} -r ${STAGEDIR}${PREFIX}/lib
 .endif
 .endif
 .for tool in ${BUREMOVE}
 	@${RM} ${STAGEDIR}${PREFIX}/bin/${BUTARGET}-${tool} \
-	    ${STAGEDIR}${PREFIX}/man/man1/${BUTARGET}-${tool}.1 \
+	    ${STAGEDIR}${PREFIX}/bin/${tool} \
+	    ${STAGEDIR}${MANPREFIX}/man/man1/${BUTARGET}-${tool}.1 \
+	    ${STAGEDIR}${MANPREFIX}/man/man1/${tool}.1 \
 	    ${STAGEDIR}${PREFIX}/${BUTARGET}/bin/${tool}
 .endfor
 .if defined(BUREMOVE) && ${BUREMOVE:Mld}

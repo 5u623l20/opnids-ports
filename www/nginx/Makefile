@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	nginx
-PORTVERSION=	1.14.0
-PORTREVISION?=	8
+PORTVERSION=	1.14.2
+PORTREVISION?=	6
 PORTEPOCH=	2
 CATEGORIES=	www
 MASTER_SITES=	http://nginx.org/download/ \
@@ -14,6 +14,10 @@ MAINTAINER?=	joneum@FreeBSD.org
 COMMENT?=	Robust and small WWW server
 
 LICENSE=	BSD2CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+BROKEN_mips=	error ngx_spinlock() or ngx_atomic_cmp_set() are not defined
+BROKEN_mips64=	error ngx_spinlock() or ngx_atomic_cmp_set() are not defined
 
 CONFLICTS_INSTALL=	nginx-devel
 
@@ -82,7 +86,7 @@ OPTIONS_GROUP_HTTPGRP+=	AJP AWS_AUTH BROTLI CACHE_PURGE CLOJURE CT DEVEL_KIT \
 	HTTP_UPSTREAM_CHECK HTTP_UPSTREAM_FAIR HTTP_UPSTREAM_STICKY \
 	HTTP_VIDEO_THUMBEXTRACTOR HTTP_ZIP ICONV LET LUA MEMC MODSECURITY \
 	MODSECURITY3 NAXSI NJS PASSENGER POSTGRES RDS_CSV RDS_JSON REDIS2 RTMP \
-	SET_MISC SFLOW SHIBBOLETH SLOWFS_CACHE SMALL_LIGHT SRCACHE VTS XSS
+	SET_MISC SFLOW SHIBBOLETH SLOWFS_CACHE SMALL_LIGHT SRCACHE VOD VTS XSS
 OPTIONS_GROUP_MAILGRP=	MAIL MAIL_IMAP MAIL_POP3 MAIL_SMTP MAIL_SSL
 OPTIONS_DEFINE=	DEBUG DEBUGLOG DSO FILE_AIO IPV6 THREADS WWW
 OPTIONS_DEFAULT?=	DSO FILE_AIO HTTP HTTP_ADDITION HTTP_AUTH_REQ HTTP_CACHE \
@@ -145,7 +149,7 @@ HTTP_AUTH_REQ_CONFIGURE_ON=	--with-http_auth_request_module
 HTTP_CACHE_CONFIGURE_OFF=	--without-http-cache
 HTTP_DAV_CONFIGURE_ON=		--with-http_dav_module
 HTTP_FLV_CONFIGURE_ON=		--with-http_flv_module
-HTTP_GEOIP_LIB_DEPENDS=		libGeoIP.so:net/GeoIP
+HTTP_GEOIP_LIB_DEPENDS=		libGeoIP.so:net/GeoIP 	 
 HTTP_GEOIP_VARS=		DSO_BASEMODS+=http_geoip_module
 HTTP_GZIP_STATIC_CONFIGURE_ON=	--with-http_gzip_static_module
 HTTP_GUNZIP_FILTER_CONFIGURE_ON=--with-http_gunzip_module
@@ -163,6 +167,7 @@ HTTP_REWRITE_CONFIGURE_OFF=	--without-http_rewrite_module
 HTTP_SECURE_LINK_CONFIGURE_ON=	--with-http_secure_link_module
 HTTP_SLICE_CONFIGURE_ON=	--with-http_slice_module
 HTTP_SSL_CONFIGURE_ON=		--with-http_ssl_module
+HTTP_SSL_USE=				openssl_rpath
 HTTP_SSL_USES=			ssl
 HTTP_STATUS_CONFIGURE_ON=	--with-http_stub_status_module
 HTTP_SUB_CONFIGURE_ON=		--with-http_sub_module
@@ -197,6 +202,12 @@ _addextmod=	add-module
 CONFIGURE_ARGS+=	--with-${mod}${_addbasemod}
 .endfor
 
+# Some modules depend on other being there before, for example, devel_kit needs
+# to be there before a few other.
+.for mod in ${FIRST_DSO_EXTMODS}
+CONFIGURE_ARGS+=	--${_addextmod}=${WRKSRC_${mod}}${${mod:tu}_SUBDIR}
+.endfor
+
 .for mod in ${DSO_EXTMODS}
 CONFIGURE_ARGS+=	--${_addextmod}=${WRKSRC_${mod}}${${mod:tu}_SUBDIR}
 .endfor
@@ -208,10 +219,6 @@ CONFIGURE_ARGS+=	--${_addextmod}=${WRKDIR}/${moddir}
 .if empty(PORT_OPTIONS:MHTTP) && empty(PORT_OPTIONS:MMAIL)
 IGNORE=		requires at least HTTP or MAIL to \
 		be defined.  Please do 'make config' again
-.endif
-
-.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1100085 && ${SSL_DEFAULT} == base && ${PORT_OPTIONS:MCT}
-IGNORE=		CT option requires OpenSSL 1.0.2, add DEFAULT_VERSIONS+=ssl=openssl to /etc/make.conf
 .endif
 
 .if !${PORT_OPTIONS:MHTTP_REWRITE} && !defined(USE_HTTP_REWRITE)
@@ -278,6 +285,9 @@ post-patch-MODSECURITY-on:
 		's!%%PREFIX%%!${LOCALBASE}!g' \
 		${WRKSRC_MODSECURITY}/configure
 
+post-patch-NJS-on: # OPNsense fixup
+	@${REINPLACE_CMD} 's!-Werror!!g' ${WRKSRC_njs}/nxt/auto/clang
+
 post-patch-PASSENGER-on:
 	@${REINPLACE_CMD} \
 		'177,179s!true!false!' \
@@ -298,6 +308,11 @@ post-patch-SFLOW-on:
 	@${REINPLACE_CMD} \
 		's!%%PREFIX%%!${LOCALBASE}!g' \
 		${WRKSRC_sflow}/ngx_http_sflow_config.h
+
+post-patch-VOD-on:
+	@${REINPLACE_CMD} \
+	's!%%PREFIX%%!${LOCALBASE}!g' \
+	${WRKSRC_vod}/config
 
 pre-configure-MODSECURITY-on:
 	( cd ${WRKSRC_MODSECURITY} && \
