@@ -120,6 +120,7 @@ SUB_FILES=	pkg-message
 
 CONFIGURE_ARGS+=--enable-gccprotect \
 		--enable-bundled-htp \
+		--enable-rust \
 		--with-libpcre-includes=${LOCALBASE}/include \
 		--with-libpcre-libraries=${LOCALBASE}/lib \
 		--with-libyaml-includes=${LOCALBASE}/include \
