@@ -15,6 +15,7 @@ MAINTAINER= 	project@opnids.io
 COMMENT= 	DragonFly Machine Learning Engine
 
 LICENSE= 	GPLv2
+USE_HARDENING=	pie:off relro:off
 
 LIB_DEPENDS= libcurl.so:ftp/curl libluajit-5.1.so:lang/luajit libhiredis.so:databases/hiredis libmicrohttpd.so:www/libmicrohttpd
 
